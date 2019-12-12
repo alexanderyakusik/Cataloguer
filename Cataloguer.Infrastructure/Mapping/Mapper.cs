@@ -6,7 +6,7 @@ namespace Cataloguer.Infrastructure.Mapping
 {
     public class Mapper
     {
-        public readonly Dictionary<Type, Dictionary<Type, IMappingProvider>> _dict;
+        private readonly Dictionary<Type, Dictionary<Type, IMappingProvider>> _dict;
 
         internal Mapper(MapperConfigurer configurer)
         {

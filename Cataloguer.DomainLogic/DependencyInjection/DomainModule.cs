@@ -4,6 +4,7 @@ using Cataloguer.DomainLogic.Services;
 using Cataloguer.Infrastructure.Configuration;
 using Cataloguer.Infrastructure.DependencyInjection;
 using Cataloguer.Infrastructure.DependencyInjection.Interfaces;
+using Cataloguer.Infrastructure.Mapping;
 
 namespace Cataloguer.DomainLogic.DependencyInjection
 {
@@ -21,6 +22,7 @@ namespace Cataloguer.DomainLogic.DependencyInjection
             _dataModule.RegisterDependencies(container);
 
             var config = container.Resolve<AppConfiguration>();
+            var mapper = container.Resolve<Mapper>();
             var posterService = new PosterService(config, container.Resolve<PosterDAO>(), container.Resolve<PosterImageDAO>());
 
             container
@@ -28,7 +30,7 @@ namespace Cataloguer.DomainLogic.DependencyInjection
                 .Register(new MovieService(config, container.Resolve<MovieDAO>(), posterService))
                 .Register(new FormatService(config, container.Resolve<FormatDAO>()))
                 .Register(new QualityService(config, container.Resolve<QualityDAO>()))
-                .Register(new CompanyService(config, container.Resolve<CompanyDAO>()))
+                .Register(new CompanyService(config, mapper, container.Resolve<CompanyDAO>()))
                 .Register(new GenreService(config, container.Resolve<GenreDAO>()));
         }
     }

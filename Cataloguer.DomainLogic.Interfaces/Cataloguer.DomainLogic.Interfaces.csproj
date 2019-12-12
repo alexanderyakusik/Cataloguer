@@ -49,6 +49,7 @@
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\Poster.cs" />
     <Compile Include="Models\Quality.cs" />
+    <Compile Include="Services\ICompanyService.cs" />
     <Compile Include="Services\ICrudService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

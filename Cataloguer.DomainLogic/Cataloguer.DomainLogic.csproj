@@ -42,15 +42,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyInjection\DomainModule.cs" />
-    <Compile Include="Mapping\CompanyMappingExtensions.cs" />
     <Compile Include="Mapping\CompanyMappingProvider.cs" />
-    <Compile Include="Mapping\FormatMappingExtensions.cs" />
-    <Compile Include="Mapping\GenreMappingExtensions.cs" />
-    <Compile Include="Mapping\MovieMappingExtensions.cs" />
-    <Compile Include="Mapping\PosterMappingExtensions.cs" />
-    <Compile Include="Mapping\QualityMappingExtensions.cs" />
+    <Compile Include="Mapping\FormatMappingProvider.cs" />
+    <Compile Include="Mapping\GenreMappingProvider.cs" />
+    <Compile Include="Mapping\MovieMappingProvider.cs" />
+    <Compile Include="Mapping\PosterMappingProvider.cs" />
+    <Compile Include="Mapping\QualityMappingProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseClasses\BaseCrudService.cs" />
+    <Compile Include="Services\BaseClasses\BaseNamedCrudService.cs" />
     <Compile Include="Services\BaseClasses\BaseService.cs" />
     <Compile Include="Services\CompanyService.cs" />
     <Compile Include="Services\FormatService.cs" />
