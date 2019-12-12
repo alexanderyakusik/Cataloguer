@@ -1,4 +1,5 @@
-﻿using Cataloguer.Data.DAO.BaseClasses;
+﻿using Cataloguer.Data.DAO;
+using Cataloguer.Data.DAO.BaseClasses;
 using Cataloguer.Data.DTO;
 using Cataloguer.DomainLogic.Interfaces.Models;
 using Cataloguer.DomainLogic.Interfaces.Services;
@@ -10,7 +11,7 @@ namespace Cataloguer.DomainLogic.Services
 {
     public class QualityService : BaseNamedCrudService<Quality, QualityDTO>, IQualityService
     {
-        public QualityService(AppConfiguration configuration, Mapper mapper, BaseCrudDAO<QualityDTO> dao) : base(configuration, mapper, dao)
+        public QualityService(AppConfiguration configuration, DAOStorage daoStorage, Mapper mapper, BaseCrudDAO<QualityDTO> dao) : base(configuration, daoStorage, mapper, dao)
         {
         }
     }

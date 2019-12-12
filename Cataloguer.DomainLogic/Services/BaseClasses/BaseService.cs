@@ -1,4 +1,5 @@
-﻿using Cataloguer.Infrastructure.Configuration;
+﻿using Cataloguer.Data.DAO;
+using Cataloguer.Infrastructure.Configuration;
 
 namespace Cataloguer.DomainLogic.Services.BaseClasses
 {
@@ -6,9 +7,12 @@ namespace Cataloguer.DomainLogic.Services.BaseClasses
     {
         protected AppConfiguration Configuration { get; }
 
-        protected BaseService(AppConfiguration configuration)
+        protected DAOStorage Storage { get; }
+
+        protected BaseService(AppConfiguration configuration, DAOStorage storage)
         {
             Configuration = configuration;
+            Storage = storage;
         }
     }
 }

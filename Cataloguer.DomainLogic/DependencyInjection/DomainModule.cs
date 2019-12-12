@@ -16,14 +16,17 @@ namespace Cataloguer.DomainLogic.DependencyInjection
         {
             var config = container.Resolve<AppConfiguration>();
             var mapper = container.Resolve<Mapper>();
+            var storage = container.Resolve<DAOStorage>();
+
+            var posterService = new PosterService(config, storage, mapper, storage.PosterDAO);
 
             container
-                .RegisterAs<ICompanyService, CompanyService>(new CompanyService(config, mapper, container.Resolve<CompanyDAO>()))
-                .RegisterAs<IMovieService, MovieService>(new MovieService(config, mapper, container.Resolve<MovieDAO>()))
-                .RegisterAs<IQualityService, QualityService>(new QualityService(config, mapper, container.Resolve<QualityDAO>()))
-                .RegisterAs<IGenreService, GenreService>(new GenreService(config, mapper, container.Resolve<GenreDAO>()))
-                .RegisterAs<IFormatService, FormatService>(new FormatService(config, mapper, container.Resolve<FormatDAO>()))
-                .RegisterAs<IPosterService, PosterService>(new PosterService(config, mapper, container.Resolve<PosterDAO>()));
+                .RegisterAs<ICompanyService, CompanyService>(new CompanyService(config, storage, mapper, storage.CompanyDAO))
+                .RegisterAs<IMovieService, MovieService>(new MovieService(config, storage, mapper, storage.MovieDAO, posterService))
+                .RegisterAs<IQualityService, QualityService>(new QualityService(config, storage, mapper, storage.QualityDAO))
+                .RegisterAs<IGenreService, GenreService>(new GenreService(config, storage, mapper, storage.GenreDAO))
+                .RegisterAs<IFormatService, FormatService>(new FormatService(config, storage, mapper, storage.FormatDAO))
+                .RegisterAs<IPosterService, PosterService>(posterService);
         }
     }
 }

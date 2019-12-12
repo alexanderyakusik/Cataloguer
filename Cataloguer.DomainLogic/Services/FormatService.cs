@@ -1,4 +1,5 @@
-﻿using Cataloguer.Data.DAO.BaseClasses;
+﻿using Cataloguer.Data.DAO;
+using Cataloguer.Data.DAO.BaseClasses;
 using Cataloguer.Data.DTO;
 using Cataloguer.DomainLogic.Interfaces.Models;
 using Cataloguer.DomainLogic.Interfaces.Services;
@@ -10,7 +11,7 @@ namespace Cataloguer.DomainLogic.Services
 {
     public class FormatService : BaseNamedCrudService<Format, FormatDTO>, IFormatService
     {
-        public FormatService(AppConfiguration configuration, Mapper mapper, BaseCrudDAO<FormatDTO> dao) : base(configuration, mapper, dao)
+        public FormatService(AppConfiguration configuration, DAOStorage daoStorage, Mapper mapper, BaseCrudDAO<FormatDTO> dao) : base(configuration, daoStorage, mapper, dao)
         {
         }
     }

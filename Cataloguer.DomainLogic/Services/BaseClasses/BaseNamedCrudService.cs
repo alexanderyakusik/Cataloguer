@@ -1,4 +1,5 @@
-﻿using Cataloguer.Data.DAO.BaseClasses;
+﻿using Cataloguer.Data.DAO;
+using Cataloguer.Data.DAO.BaseClasses;
 using Cataloguer.Data.DTO.BaseClasses;
 using Cataloguer.DomainLogic.Interfaces.Models.BaseClasses;
 using Cataloguer.Infrastructure.Configuration;
@@ -14,9 +15,10 @@ namespace Cataloguer.DomainLogic.Services.BaseClasses
     {
         protected BaseNamedCrudService(
             AppConfiguration configuration,
+            DAOStorage daoStorage,
             Mapper mapper,
             BaseCrudDAO<TDto> dao
-        ) : base(configuration, mapper, dao)
+        ) : base(configuration, daoStorage, mapper, dao)
         {
         }
 
@@ -36,8 +38,8 @@ namespace Cataloguer.DomainLogic.Services.BaseClasses
 
         private void ValidateExistingName(TModel entity)
         {
-            bool entityExists = _dao.GetAll()
-                .Select(_mapper.Map<TModel>)
+            bool entityExists = DAO.GetAll()
+                .Select(Mapper.Map<TModel>)
                 .Any(item => item.Name == entity.Name);
 
             if (entityExists)

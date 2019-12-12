@@ -1,4 +1,5 @@
-﻿using Cataloguer.Data.DAO.BaseClasses;
+﻿using Cataloguer.Data.DAO;
+using Cataloguer.Data.DAO.BaseClasses;
 using Cataloguer.Data.DTO.BaseClasses;
 using Cataloguer.DomainLogic.Interfaces.Models.BaseClasses;
 using Cataloguer.DomainLogic.Interfaces.Services;
@@ -19,9 +20,10 @@ namespace Cataloguer.DomainLogic.Services.BaseClasses
 
         protected BaseCrudService(
             AppConfiguration configuration,
+            DAOStorage daoStorage,
             Mapper mapper,
             BaseCrudDAO<TDto> dao
-        ) : base(configuration)
+        ) : base(configuration, daoStorage)
         {
             DAO = dao;
             Mapper = mapper;

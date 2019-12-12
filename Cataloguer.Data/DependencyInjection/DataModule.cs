@@ -13,14 +13,17 @@ namespace Cataloguer.Data.DependencyInjection
         {
             var config = container.Resolve<AppConfiguration>();
 
-            container
-                .Register(new MovieDAO(config))
-                .Register(new PosterDAO(config))
-                .Register(new PosterImageDAO(config))
-                .Register(new GenreDAO(config))
-                .Register(new QualityDAO(config))
-                .Register(new FormatDAO(config))
-                .Register(new CompanyDAO(config));
+            var daoStorage = new DAOStorage(
+                new CompanyDAO(config),
+                new FormatDAO(config),
+                new GenreDAO(config),
+                new PosterDAO(config),
+                new QualityDAO(config),
+                new MovieDAO(config),
+                new PosterImageDAO(config)
+            );
+
+            container.Register(daoStorage);
         }
     }
 }

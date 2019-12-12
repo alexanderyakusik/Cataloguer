@@ -1,4 +1,6 @@
-﻿using Cataloguer.Data.DAO;
+﻿using System;
+using System.Collections.Generic;
+using Cataloguer.Data.DAO;
 using Cataloguer.Data.DAO.BaseClasses;
 using Cataloguer.Data.DTO;
 using Cataloguer.DomainLogic.Interfaces.Models;
@@ -11,22 +13,19 @@ namespace Cataloguer.DomainLogic.Services
 {
     public class PosterService : BaseCrudService<Poster, PosterDTO>, IPosterService
     {
-        private readonly PosterImageDAO _posterImageDAO;
-
         public PosterService(
             AppConfiguration configuration,
+            DAOStorage daoStorage,
             Mapper mapper,
-            BaseCrudDAO<PosterDTO> dao,
-            PosterImageDAO posterImageDAO
-        ) : base(configuration, mapper, dao)
+            BaseCrudDAO<PosterDTO> dao
+        ) : base(configuration, daoStorage, mapper, dao)
         {
-            _posterImageDAO = posterImageDAO;
         }
 
         public override int Create(Poster entity)
         {
             string fileName = DAO.GetNextId().ToString();
-            _posterImageDAO.Create(entity.Image, fileName);
+            Storage.PosterImageDAO.Create(entity.Image, fileName);
 
             var posterDto = Mapper.Map<PosterDTO>(entity);
             posterDto.FileName = fileName;
@@ -42,7 +41,7 @@ namespace Cataloguer.DomainLogic.Services
                 return null;
             }
 
-            byte[] image = _posterImageDAO.Get(fileName);
+            byte[] image = Storage.PosterImageDAO.Get(fileName);
             if (image == null)
             {
                 return null;
@@ -63,7 +62,7 @@ namespace Cataloguer.DomainLogic.Services
                 return;
             }
 
-            _posterImageDAO.Update(entity.Image, fileName);
+            Storage.PosterImageDAO.Update(entity.Image, fileName);
         }
 
         public override void Delete(int id)
@@ -74,8 +73,13 @@ namespace Cataloguer.DomainLogic.Services
                 return;
             }
 
-            _posterImageDAO.Delete(fileName);
+            Storage.PosterImageDAO.Delete(fileName);
             DAO.Delete(id);
+        }
+
+        public override IEnumerable<Poster> GetAll()
+        {
+            throw new NotImplementedException();
         }
     }
 }
