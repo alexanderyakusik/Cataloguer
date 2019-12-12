@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B686B4FB-7495-498A-868D-4F39633011BD}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <RootNamespace>Cataloguer.UI</RootNamespace>
-    <AssemblyName>Cataloguer.UI</AssemblyName>
+    <ProjectGuid>{A3B6DAC7-A1FA-4CD1-AE19-797198FCA2DB}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Cataloguer.ConsoleUI</RootNamespace>
+    <AssemblyName>Cataloguer.ConsoleUI</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -39,44 +39,22 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cataloguer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cataloguer.Designer.cs">
-      <DependentUpon>Cataloguer.cs</DependentUpon>
-    </Compile>
+    <Compile Include="DependencyInjection\UIModule.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cataloguer.DomainLogic\Cataloguer.DomainLogic.csproj">
+      <Project>{634AF3BA-25D7-4774-96A6-D3E233C93761}</Project>
+      <Name>Cataloguer.DomainLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cataloguer.Infrastructure\Cataloguer.Infrastructure.csproj">
       <Project>{B1D44C2E-FEA3-43AF-9BDB-58188515AB1F}</Project>
       <Name>Cataloguer.Infrastructure</Name>

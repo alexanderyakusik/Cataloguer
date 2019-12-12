@@ -5,6 +5,16 @@ VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cataloguer.UI", "Cataloguer.UI\Cataloguer.UI.csproj", "{B686B4FB-7495-498A-868D-4F39633011BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cataloguer.DomainLogic", "Cataloguer.DomainLogic\Cataloguer.DomainLogic.csproj", "{634AF3BA-25D7-4774-96A6-D3E233C93761}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cataloguer.Data", "Cataloguer.Data\Cataloguer.Data.csproj", "{A016B34C-A2F7-4087-A050-496889A6E9AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cataloguer.Infrastructure", "Cataloguer.Infrastructure\Cataloguer.Infrastructure.csproj", "{B1D44C2E-FEA3-43AF-9BDB-58188515AB1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cataloguer.ConsoleUI", "Cataloguer.ConsoleUI\Cataloguer.ConsoleUI.csproj", "{A3B6DAC7-A1FA-4CD1-AE19-797198FCA2DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cataloguer.DomainLogic.Interfaces", "Cataloguer.DomainLogic.Interfaces\Cataloguer.DomainLogic.Interfaces.csproj", "{53C045F4-F51E-4E03-8876-46DFA58C4022}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +25,26 @@ Global
 		{B686B4FB-7495-498A-868D-4F39633011BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B686B4FB-7495-498A-868D-4F39633011BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B686B4FB-7495-498A-868D-4F39633011BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{634AF3BA-25D7-4774-96A6-D3E233C93761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{634AF3BA-25D7-4774-96A6-D3E233C93761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{634AF3BA-25D7-4774-96A6-D3E233C93761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{634AF3BA-25D7-4774-96A6-D3E233C93761}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A016B34C-A2F7-4087-A050-496889A6E9AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A016B34C-A2F7-4087-A050-496889A6E9AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A016B34C-A2F7-4087-A050-496889A6E9AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A016B34C-A2F7-4087-A050-496889A6E9AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1D44C2E-FEA3-43AF-9BDB-58188515AB1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1D44C2E-FEA3-43AF-9BDB-58188515AB1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1D44C2E-FEA3-43AF-9BDB-58188515AB1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1D44C2E-FEA3-43AF-9BDB-58188515AB1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3B6DAC7-A1FA-4CD1-AE19-797198FCA2DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3B6DAC7-A1FA-4CD1-AE19-797198FCA2DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3B6DAC7-A1FA-4CD1-AE19-797198FCA2DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3B6DAC7-A1FA-4CD1-AE19-797198FCA2DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53C045F4-F51E-4E03-8876-46DFA58C4022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53C045F4-F51E-4E03-8876-46DFA58C4022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53C045F4-F51E-4E03-8876-46DFA58C4022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53C045F4-F51E-4E03-8876-46DFA58C4022}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

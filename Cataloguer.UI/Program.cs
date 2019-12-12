@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cataloguer.Infrastructure.Configuration;
+using System;
 using System.Windows.Forms;
 
 namespace Cataloguer.UI
@@ -11,9 +12,14 @@ namespace Cataloguer.UI
         [STAThread]
         static void Main()
         {
+            var config = new AppConfiguration();
+            var initializer = new Initializer(config);
+
+            initializer.Run();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Cataloguer());
+            Application.Run(new Cataloguer(config));
         }
     }
 }
