@@ -12,9 +12,50 @@ namespace Cataloguer.Data.DAO
 
         public void Create(byte[] bytes, string fileName)
         {
-            string path = Path.Combine(Configuration.ImagesPath, fileName);
+            string path = GetImagePath(fileName);
 
             File.WriteAllBytes(path, bytes);
+        }
+
+        public byte[] Get(string fileName)
+        {
+            string path = GetImagePath(fileName);
+
+            if (!File.Exists(path))
+            {
+                return null;
+            }
+
+            return File.ReadAllBytes(path);
+        }
+
+        public void Update(byte[] bytes, string fileName)
+        {
+            string path = GetImagePath(fileName);
+
+            if (!File.Exists(path))
+            {
+                return;
+            }
+
+            File.WriteAllBytes(path, bytes);
+        }
+
+        public void Delete(string fileName)
+        {
+            string path = GetImagePath(fileName);
+
+            if (!File.Exists(path))
+            {
+                return;
+            }
+
+            File.Delete(path);
+        }
+
+        private string GetImagePath(string fileName)
+        {
+            return Path.Combine(Configuration.ImagesPath, fileName);
         }
     }
 }

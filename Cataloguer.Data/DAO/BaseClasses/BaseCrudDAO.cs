@@ -3,7 +3,6 @@ using Cataloguer.Data.DTO.BaseClasses;
 using Cataloguer.Infrastructure.Classes;
 using Cataloguer.Infrastructure.Configuration;
 using Cataloguer.Infrastructure.Extensions;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

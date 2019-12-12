@@ -13,8 +13,9 @@ namespace Cataloguer.DomainLogic.Services.BaseClasses
         where TModel : BaseModel
         where TDto : BaseDTO
     {
-        protected readonly BaseCrudDAO<TDto> _dao;
-        protected readonly Mapper _mapper;
+        protected BaseCrudDAO<TDto> DAO { get; }
+
+        protected Mapper Mapper { get; }
 
         protected BaseCrudService(
             AppConfiguration configuration,
@@ -22,34 +23,34 @@ namespace Cataloguer.DomainLogic.Services.BaseClasses
             BaseCrudDAO<TDto> dao
         ) : base(configuration)
         {
-            _dao = dao;
-            _mapper = mapper;
+            DAO = dao;
+            Mapper = mapper;
         }
 
         public virtual int Create(TModel entity)
         {
-            return _dao.Create(_mapper.Map<TDto>(entity));
+            return DAO.Create(Mapper.Map<TDto>(entity));
         }
 
         public virtual void Delete(int id)
         {
-            _dao.Delete(id);
+            DAO.Delete(id);
         }
 
         public virtual TModel Get(int id)
         {
-            return _mapper.Map<TModel>(_dao.Get(id));
+            return Mapper.Map<TModel>(DAO.Get(id));
         }
 
         public virtual IEnumerable<TModel> GetAll()
         {
-            return _dao.GetAll()
-                .Select(_mapper.Map<TModel>);
+            return DAO.GetAll()
+                .Select(Mapper.Map<TModel>);
         }
 
         public virtual void Update(TModel entity)
         {
-            _dao.Update(_mapper.Map<TDto>(entity));
+            DAO.Update(Mapper.Map<TDto>(entity));
         }
     }
 }
