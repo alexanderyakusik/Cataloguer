@@ -13,13 +13,8 @@ namespace Cataloguer.Infrastructure.Mapping
             ProvidersConfiguration = new Dictionary<Type, Dictionary<Type, IMappingProvider>>();
         }
 
-        public MapperConfigurer RegisterProvider<TSource, TDest>(MappingProvider<TSource, TDest> provider)
-            where TSource : class
-            where TDest : class
+        public MapperConfigurer RegisterProvider(Type sourceType, Type destType, IMappingProvider provider)
         {
-            Type sourceType = typeof(TSource);
-            Type destType = typeof(TDest);
-
             if (ProvidersConfiguration.TryGetValue(sourceType, out Dictionary<Type, IMappingProvider> innerDict))
             {
                 innerDict.Add(destType, provider);
