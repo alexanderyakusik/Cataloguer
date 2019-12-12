@@ -52,6 +52,11 @@
     <Compile Include="Services\ICompanyService.cs" />
     <Compile Include="Services\ICrudService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IFormatService.cs" />
+    <Compile Include="Services\IGenreService.cs" />
+    <Compile Include="Services\IMovieService.cs" />
+    <Compile Include="Services\IPosterService.cs" />
+    <Compile Include="Services\IQualityService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

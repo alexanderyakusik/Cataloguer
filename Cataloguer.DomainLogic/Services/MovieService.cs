@@ -1,50 +1,17 @@
-﻿using Cataloguer.Data.DAO;
-using Cataloguer.DomainLogic.Models;
+﻿using Cataloguer.Data.DAO.BaseClasses;
+using Cataloguer.Data.DTO;
+using Cataloguer.DomainLogic.Interfaces.Models;
+using Cataloguer.DomainLogic.Interfaces.Services;
 using Cataloguer.DomainLogic.Services.BaseClasses;
-using Cataloguer.DomainLogic.Services.Interfaces;
 using Cataloguer.Infrastructure.Configuration;
-using System.Collections.Generic;
+using Cataloguer.Infrastructure.Mapping;
 
 namespace Cataloguer.DomainLogic.Services
 {
-    public class MovieService : BaseService, ICrudService<Movie>
+    public class MovieService : BaseNamedCrudService<Movie, MovieDTO>, IMovieService
     {
-        private readonly PosterService _posterService;
-
-        public MovieService(
-            AppConfiguration configuration,
-            MovieDAO movieDAO,
-            PosterService posterService
-        ) : base(configuration)
+        public MovieService(AppConfiguration configuration, Mapper mapper, BaseCrudDAO<MovieDTO> dao) : base(configuration, mapper, dao)
         {
-            _posterService = posterService;
-        }
-
-        public int Create(Movie entity)
-        {
-            _posterService.Create(entity.Poster);
-
-            return 0;
-        }
-
-        public void Delete(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Movie Get(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<Movie> GetAll()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Update(Movie entity)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

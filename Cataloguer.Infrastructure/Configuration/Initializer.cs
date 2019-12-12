@@ -1,5 +1,4 @@
-﻿using Cataloguer.Infrastructure.DependencyInjection;
-using System.IO;
+﻿using System.IO;
 
 namespace Cataloguer.Infrastructure.Configuration
 {
@@ -41,7 +40,8 @@ namespace Cataloguer.Infrastructure.Configuration
 
                 if (!File.Exists(filePath))
                 {
-                    File.Create(filePath);
+                    FileStream fileStream = File.Create(filePath);
+                    fileStream.Dispose();
                 }
             }
         }

@@ -1,5 +1,4 @@
-﻿using Cataloguer.Infrastructure.DependencyInjection.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Cataloguer.Infrastructure.DependencyInjection
@@ -8,11 +7,8 @@ namespace Cataloguer.Infrastructure.DependencyInjection
     {
         private readonly Dictionary<Type, object> _dict = new Dictionary<Type, object>();
 
-        public Container(IModule module)
+        internal Container()
         {
-            new InfrastructureModule().RegisterDependencies(this);
-
-            module.RegisterDependencies(this);
         }
 
         public T Resolve<T>()
@@ -24,12 +20,19 @@ namespace Cataloguer.Infrastructure.DependencyInjection
                 return (T)value;
             }
 
-            throw new ApplicationException($"Cannod resolve instance of a type {type.Name}.");
+            throw new ApplicationException($"Cannod resolve instance of the type {type.Name}.");
         }
 
         public Container Register<T>(T @object)
         {
             _dict[typeof(T)] = @object;
+
+            return this;
+        }
+
+        public Container RegisterAs<TAs, T>(T @object)
+        {
+            _dict[typeof(TAs)] = @object;
 
             return this;
         }

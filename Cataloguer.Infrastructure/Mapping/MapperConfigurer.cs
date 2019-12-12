@@ -15,6 +15,14 @@ namespace Cataloguer.Infrastructure.Mapping
 
         public MapperConfigurer RegisterProvider(Type sourceType, Type destType, IMappingProvider provider)
         {
+            RegisterOneWay(sourceType, destType, provider);
+            RegisterOneWay(destType, sourceType, provider);
+
+            return this;
+        }
+
+        private void RegisterOneWay(Type sourceType, Type destType, IMappingProvider provider)
+        {
             if (ProvidersConfiguration.TryGetValue(sourceType, out Dictionary<Type, IMappingProvider> innerDict))
             {
                 innerDict.Add(destType, provider);
@@ -23,8 +31,6 @@ namespace Cataloguer.Infrastructure.Mapping
             {
                 ProvidersConfiguration.Add(sourceType, new Dictionary<Type, IMappingProvider> { { destType, provider } });
             }
-
-            return this;
         }
     }
 }

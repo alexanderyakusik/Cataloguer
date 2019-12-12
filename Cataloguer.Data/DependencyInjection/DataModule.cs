@@ -7,6 +7,8 @@ namespace Cataloguer.Data.DependencyInjection
 {
     public class DataModule : IModule
     {
+        public int Order => 1;
+
         public void RegisterDependencies(Container container)
         {
             var config = container.Resolve<AppConfiguration>();

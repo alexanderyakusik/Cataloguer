@@ -1,5 +1,5 @@
 ﻿using Cataloguer.Data.DAO;
-using Cataloguer.Data.DependencyInjection;
+using Cataloguer.DomainLogic.Interfaces.Services;
 using Cataloguer.DomainLogic.Services;
 using Cataloguer.Infrastructure.Configuration;
 using Cataloguer.Infrastructure.DependencyInjection;
@@ -10,28 +10,20 @@ namespace Cataloguer.DomainLogic.DependencyInjection
 {
     public class DomainModule : IModule
     {
-        private readonly DataModule _dataModule;
-
-        public DomainModule()
-        {
-            _dataModule = new DataModule();
-        }
+        public int Order => 2;
 
         public void RegisterDependencies(Container container)
         {
-            _dataModule.RegisterDependencies(container);
-
             var config = container.Resolve<AppConfiguration>();
             var mapper = container.Resolve<Mapper>();
-            var posterService = new PosterService(config, container.Resolve<PosterDAO>(), container.Resolve<PosterImageDAO>());
 
             container
-                .Register(posterService)
-                .Register(new MovieService(config, container.Resolve<MovieDAO>(), posterService))
-                .Register(new FormatService(config, container.Resolve<FormatDAO>()))
-                .Register(new QualityService(config, container.Resolve<QualityDAO>()))
-                .Register(new CompanyService(config, mapper, container.Resolve<CompanyDAO>()))
-                .Register(new GenreService(config, container.Resolve<GenreDAO>()));
+                .RegisterAs<ICompanyService, CompanyService>(new CompanyService(config, mapper, container.Resolve<CompanyDAO>()))
+                .RegisterAs<IMovieService, MovieService>(new MovieService(config, mapper, container.Resolve<MovieDAO>()))
+                .RegisterAs<IQualityService, QualityService>(new QualityService(config, mapper, container.Resolve<QualityDAO>()))
+                .RegisterAs<IGenreService, GenreService>(new GenreService(config, mapper, container.Resolve<GenreDAO>()))
+                .RegisterAs<IFormatService, FormatService>(new FormatService(config, mapper, container.Resolve<FormatDAO>()))
+                .RegisterAs<IPosterService, PosterService>(new PosterService(config, mapper, container.Resolve<PosterDAO>()));
         }
     }
 }

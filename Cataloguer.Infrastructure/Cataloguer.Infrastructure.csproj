@@ -46,14 +46,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Json.cs" />
+    <Compile Include="Classes\Reflection.cs" />
     <Compile Include="Configuration\AppConfiguration.cs" />
     <Compile Include="Configuration\Initializer.cs" />
     <Compile Include="DependencyInjection\Container.cs" />
+    <Compile Include="DependencyInjection\ContainerBuilder.cs" />
     <Compile Include="DependencyInjection\InfrastructureModule.cs" />
     <Compile Include="DependencyInjection\Interfaces\IModule.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Mapping\Interfaces\IMappingProvider.cs" />
-    <Compile Include="Mapping\MappingContainerExtensions.cs" />
+    <Compile Include="Mapping\MappingContainerBuilderExtensions.cs" />
     <Compile Include="Mapping\MappingProvider.cs" />
     <Compile Include="Mapping\Mapper.cs" />
     <Compile Include="Mapping\MapperConfigurer.cs" />

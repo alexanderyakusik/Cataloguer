@@ -5,6 +5,8 @@ namespace Cataloguer.Infrastructure.DependencyInjection
 {
     public class InfrastructureModule : IModule
     {
+        public int Order => int.MinValue;
+
         public void RegisterDependencies(Container container)
         {
             container

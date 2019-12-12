@@ -2,6 +2,8 @@
 {
     public interface IModule
     {
+        int Order { get; }
+
         void RegisterDependencies(Container container);
     }
 }
