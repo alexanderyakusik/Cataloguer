@@ -46,14 +46,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\BaseListViewAdapter.cs" />
+    <Compile Include="Adapters\CompanyListViewAdapter.cs" />
+    <Compile Include="Adapters\FormatListViewAdapter.cs" />
+    <Compile Include="Adapters\GenreListViewAdapter.cs" />
+    <Compile Include="Adapters\IListViewAdapter.cs" />
+    <Compile Include="Adapters\NamedBaseListViewAdapter.cs" />
+    <Compile Include="Adapters\QualityListViewAdapter.cs" />
     <Compile Include="Cataloguer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Cataloguer.Designer.cs">
       <DependentUpon>Cataloguer.cs</DependentUpon>
     </Compile>
+    <Compile Include="CrudForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CrudForm.Designer.cs">
+      <DependentUpon>CrudForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DependencyInjection\UIModule.cs" />
+    <Compile Include="Mapping\CompanyMappingProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resolvers\CrudFormResolver.cs" />
+    <Compile Include="ViewModels\BaseClasses\BaseViewModel.cs" />
+    <Compile Include="ViewModels\BaseClasses\NamedBaseViewModel.cs" />
+    <Compile Include="ViewModels\CompanyViewModel.cs" />
+    <Compile Include="ViewModels\FormatViewModel.cs" />
+    <Compile Include="ViewModels\GenreViewModel.cs" />
+    <Compile Include="ViewModels\QualityViewModel.cs" />
+    <EmbeddedResource Include="Cataloguer.resx">
+      <DependentUpon>Cataloguer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrudForm.resx">
+      <DependentUpon>CrudForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -77,6 +105,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cataloguer.DomainLogic.Interfaces\Cataloguer.DomainLogic.Interfaces.csproj">
+      <Project>{53C045F4-F51E-4E03-8876-46DFA58C4022}</Project>
+      <Name>Cataloguer.DomainLogic.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cataloguer.Infrastructure\Cataloguer.Infrastructure.csproj">
       <Project>{B1D44C2E-FEA3-43AF-9BDB-58188515AB1F}</Project>
       <Name>Cataloguer.Infrastructure</Name>

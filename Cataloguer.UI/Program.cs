@@ -1,4 +1,5 @@
-﻿using Cataloguer.Infrastructure.Configuration;
+﻿using Cataloguer.Infrastructure.DependencyInjection;
+using Cataloguer.Infrastructure.Mapping;
 using System;
 using System.Windows.Forms;
 
@@ -12,14 +13,14 @@ namespace Cataloguer.UI
         [STAThread]
         static void Main()
         {
-            var config = new AppConfiguration();
-            var initializer = new Initializer(config);
-
-            initializer.Run();
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Cataloguer(config));
+
+            var container = new ContainerBuilder()
+                .WithMapper()
+                .Build();
+
+            Application.Run(container.Resolve<Cataloguer>());
         }
     }
 }

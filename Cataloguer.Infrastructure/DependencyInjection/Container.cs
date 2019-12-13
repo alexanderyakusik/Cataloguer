@@ -17,15 +17,42 @@ namespace Cataloguer.Infrastructure.DependencyInjection
 
             if (_dict.TryGetValue(type, out object value))
             {
+                if (value is Func<T> factory)
+                {
+                    return factory();
+                }
+
                 return (T)value;
             }
 
-            throw new ApplicationException($"Cannod resolve instance of the type {type.Name}.");
+            throw new ApplicationException($"Cannot resolve instance of the type {type.Name}.");
+        }
+
+        public object Resolve(Type type)
+        {
+            if (_dict.TryGetValue(type, out object value))
+            {
+                if (value is Func<object> factory)
+                {
+                    return factory();
+                }
+
+                return value;
+            }
+
+            throw new ApplicationException($"Cannot resolve instance of the type {type.Name}.");
         }
 
         public Container Register<T>(T @object)
         {
             _dict[typeof(T)] = @object;
+
+            return this;
+        }
+
+        public Container Register<T>(Func<T> factory)
+        {
+            _dict[typeof(T)] = factory;
 
             return this;
         }
