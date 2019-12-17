@@ -1,6 +1,6 @@
 ﻿namespace Cataloguer.UI
 {
-    partial class Cataloguer
+    partial class MovieForm
     {
         /// <summary>
         /// Required designer variable.
@@ -122,6 +122,7 @@
             this.buttonUpdate.TabIndex = 10;
             this.buttonUpdate.Text = "Изменить";
             this.buttonUpdate.UseVisualStyleBackColor = true;
+            this.buttonUpdate.Click += new System.EventHandler(this.ButtonUpdate_Click);
             // 
             // buttonAdd
             // 
@@ -132,6 +133,7 @@
             this.buttonAdd.TabIndex = 9;
             this.buttonAdd.Text = "Добавить";
             this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.ButtonAdd_Click);
             // 
             // listView
             // 
@@ -156,7 +158,7 @@
             this.listViewLabel.TabIndex = 7;
             this.listViewLabel.Text = "Фильмы";
             // 
-            // Cataloguer
+            // MovieForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -169,7 +171,7 @@
             this.Controls.Add(this.listViewLabel);
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.mainMenu;
-            this.Name = "Cataloguer";
+            this.Name = "MovieForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Фильмотека";
             this.mainMenu.ResumeLayout(false);

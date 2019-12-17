@@ -20,7 +20,7 @@ namespace Cataloguer.UI
                 .WithMapper()
                 .Build();
 
-            Application.Run(container.Resolve<Cataloguer>());
+            Application.Run(container.Resolve<MovieForm>());
         }
     }
 }

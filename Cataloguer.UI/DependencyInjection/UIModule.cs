@@ -65,7 +65,13 @@ namespace Cataloguer.UI.DependencyInjection
             };
 
             container
-                .Register(() => new Cataloguer(crudFormFactory, container.Resolve<IMovieService>(), movieAdapter, mapper));
+                .Register(() => new MovieForm(
+                    crudFormFactory,
+                    container.Resolve<IMovieService>(),
+                    movieAdapter,
+                    mapper,
+                    (movie, isCreateMode) => new CrudEditorForm<MovieViewModel>(movie, isCreateMode, new MovieFormControl())
+                ));
         }
     }
 }

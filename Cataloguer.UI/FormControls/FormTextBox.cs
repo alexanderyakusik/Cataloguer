@@ -1,12 +1,10 @@
 ﻿using Cataloguer.UI.Extensions;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace Cataloguer.UI.FormControls
 {
-    public class FormTextBox : FormControl<string>
+    public class FormTextBox : LabelledFormControl<string>
     {
-        private readonly string _labelText;
         private TextBox _textBox;
 
         public override string Value
@@ -15,28 +13,23 @@ namespace Cataloguer.UI.FormControls
             set => _textBox.Text = value;
         }
 
-        public FormTextBox(string labelText)
+        public FormTextBox(string labelText) : base(labelText)
         {
-            _labelText = labelText;
         }
 
         protected override Control CreateControl()
         {
-            var font = new Font("Microsoft Sans Serif", 9.25f);
+            var container = base.CreateControl();
 
-            var container = new Container();
-            var label = new Label { Text = $"{_labelText}:", Font = font };
             _textBox = new TextBox
             {
-                Location = Offset(label, dx: 3, dy: 3),
-                Font = font,
+                Location = OffsetFromLast(container, dx: 3, dy: 3),
+                Font = Defaults.Font,
             };
 
-            container.Control.SizeChanged +=
-                (sender, e) => _textBox.Width = container.Control.Size.Width - 2 * _textBox.Location.X - 1;
+            container.SizeChanged += (sender, e) => _textBox.Width = GetFullWidth(container, _textBox);
 
             return container
-                .With(label)
                 .With(_textBox);
         }
     }
