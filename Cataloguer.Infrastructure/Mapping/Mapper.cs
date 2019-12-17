@@ -22,7 +22,7 @@ namespace Cataloguer.Infrastructure.Mapping
             {
                 if (innerDict.TryGetValue(destType, out IMappingProvider provider))
                 {
-                    return (TDest)provider.Map(source);
+                    return (TDest)provider.Map(source, this);
                 }
             }
 

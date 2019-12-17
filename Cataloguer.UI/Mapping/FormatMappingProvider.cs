@@ -6,7 +6,7 @@ namespace Cataloguer.UI.Mapping
 {
     public class FormatMappingProvider : MappingProvider<FormatViewModel, Format>
     {
-        public override Format Map(FormatViewModel source)
+        public override Format Map(FormatViewModel source, Mapper mapper)
         {
             return new Format
             {
@@ -15,7 +15,7 @@ namespace Cataloguer.UI.Mapping
             };
         }
 
-        public override FormatViewModel Map(Format dest)
+        public override FormatViewModel Map(Format dest, Mapper mapper)
         {
             return new FormatViewModel
             {

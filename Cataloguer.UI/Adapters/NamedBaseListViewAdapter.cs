@@ -7,7 +7,7 @@ namespace Cataloguer.UI.Adapters
 {
     public abstract class NamedBaseListViewAdapter : BaseListViewAdapter<NamedBaseViewModel>
     {
-        protected override Dictionary<string, string> Mappings => new Dictionary<string, string>
+        protected override Dictionary<string, string> Mappings { get; } = new Dictionary<string, string>
         {
             { nameof(NamedBaseViewModel.Name), "Название" },
         };

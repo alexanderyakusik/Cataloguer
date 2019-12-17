@@ -6,7 +6,7 @@ namespace Cataloguer.DomainLogic.Mapping
 {
     public class MovieMappingProvider : MappingProvider<Movie, MovieDTO>
     {
-        public override MovieDTO Map(Movie source)
+        public override MovieDTO Map(Movie source, Mapper mapper)
         {
             return new MovieDTO
             {
@@ -22,7 +22,7 @@ namespace Cataloguer.DomainLogic.Mapping
             };
         }
 
-        public override Movie Map(MovieDTO dest)
+        public override Movie Map(MovieDTO dest, Mapper mapper)
         {
             return new Movie
             {

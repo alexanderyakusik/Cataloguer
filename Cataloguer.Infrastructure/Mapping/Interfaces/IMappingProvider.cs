@@ -2,6 +2,6 @@
 {
     public interface IMappingProvider
     {
-        object Map(object source);
+        object Map(object source, Mapper mapper);
     }
 }

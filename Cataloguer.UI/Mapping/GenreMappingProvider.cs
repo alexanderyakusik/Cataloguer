@@ -6,7 +6,7 @@ namespace Cataloguer.UI.Mapping
 {
     public class GenreMappingProvider : MappingProvider<GenreViewModel, Genre>
     {
-        public override Genre Map(GenreViewModel source)
+        public override Genre Map(GenreViewModel source, Mapper mapper)
         {
             return new Genre
             {
@@ -15,7 +15,7 @@ namespace Cataloguer.UI.Mapping
             };
         }
 
-        public override GenreViewModel Map(Genre dest)
+        public override GenreViewModel Map(Genre dest, Mapper mapper)
         {
             return new GenreViewModel
             {

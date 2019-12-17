@@ -6,7 +6,7 @@ namespace Cataloguer.UI.Mapping
 {
     public class CompanyMappingProvider : MappingProvider<CompanyViewModel, Company>
     {
-        public override Company Map(CompanyViewModel source)
+        public override Company Map(CompanyViewModel source, Mapper mapper)
         {
             return new Company
             {
@@ -15,7 +15,7 @@ namespace Cataloguer.UI.Mapping
             };
         }
 
-        public override CompanyViewModel Map(Company dest)
+        public override CompanyViewModel Map(Company dest, Mapper mapper)
         {
             return new CompanyViewModel
             {

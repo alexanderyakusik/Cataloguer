@@ -6,7 +6,7 @@ namespace Cataloguer.DomainLogic.Mapping
 {
     public class PosterMappingProvider : MappingProvider<Poster, PosterDTO>
     {
-        public override PosterDTO Map(Poster source)
+        public override PosterDTO Map(Poster source, Mapper mapper)
         {
             return new PosterDTO
             {
@@ -14,7 +14,7 @@ namespace Cataloguer.DomainLogic.Mapping
             };
         }
 
-        public override Poster Map(PosterDTO dest)
+        public override Poster Map(PosterDTO dest, Mapper mapper)
         {
             return new Poster
             {

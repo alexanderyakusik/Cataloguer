@@ -24,6 +24,7 @@ namespace Cataloguer.UI.DependencyInjection
             var qualityAdapter = new QualityListViewAdapter();
             var formatAdapter = new FormatListViewAdapter();
             var genreAdapter = new GenreListViewAdapter();
+            var movieAdapter = new MovieListViewAdapter();
 
             container
                 .RegisterAs<IListViewAdapter<CompanyViewModel>, CompanyListViewAdapter>(companyAdapter)
@@ -56,14 +57,15 @@ namespace Cataloguer.UI.DependencyInjection
                 ));
 
             var resolver = new CrudFormResolver();
+            Func<Type, Form> crudFormFactory = (Type type) =>
+            {
+                Type crudFormType = resolver.Resolve(type);
+
+                return (Form)container.Resolve(crudFormType);
+            };
 
             container
-                .Register(() => new Cataloguer((Type type) => 
-                {
-                    Type crudFormType = resolver.Resolve(type);
-
-                    return (Form)container.Resolve(crudFormType);
-                }));
+                .Register(() => new Cataloguer(crudFormFactory, container.Resolve<IMovieService>(), movieAdapter, mapper));
         }
     }
 }

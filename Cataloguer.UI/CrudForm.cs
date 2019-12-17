@@ -42,8 +42,6 @@ namespace Cataloguer.UI
         {
             listViewLabel.Text = _adapter.ViewName;
             listView.Columns.AddRange(_adapter.GetColumns().ToArray());
-
-            listView.Columns[listView.Columns.Count - 1].Width = -2;
         }
 
         private void UpdateViewData()

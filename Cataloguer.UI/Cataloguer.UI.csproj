@@ -51,6 +51,7 @@
     <Compile Include="Adapters\FormatListViewAdapter.cs" />
     <Compile Include="Adapters\GenreListViewAdapter.cs" />
     <Compile Include="Adapters\IListViewAdapter.cs" />
+    <Compile Include="Adapters\MovieListViewAdapter.cs" />
     <Compile Include="Adapters\NamedBaseListViewAdapter.cs" />
     <Compile Include="Adapters\QualityListViewAdapter.cs" />
     <Compile Include="Cataloguer.cs">
@@ -86,6 +87,8 @@
     <Compile Include="Mapping\CompanyMappingProvider.cs" />
     <Compile Include="Mapping\GenreMappingProvider.cs" />
     <Compile Include="Mapping\FormatMappingProvider.cs" />
+    <Compile Include="Mapping\MovieMappingProvider.cs" />
+    <Compile Include="Mapping\PosterMappingProvider.cs" />
     <Compile Include="Mapping\QualityMappingProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,6 +98,8 @@
     <Compile Include="ViewModels\CompanyViewModel.cs" />
     <Compile Include="ViewModels\FormatViewModel.cs" />
     <Compile Include="ViewModels\GenreViewModel.cs" />
+    <Compile Include="ViewModels\MovieViewModel.cs" />
+    <Compile Include="ViewModels\PosterViewModel.cs" />
     <Compile Include="ViewModels\QualityViewModel.cs" />
     <EmbeddedResource Include="Cataloguer.resx">
       <DependentUpon>Cataloguer.cs</DependentUpon>

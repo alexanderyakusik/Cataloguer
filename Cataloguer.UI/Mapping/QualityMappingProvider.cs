@@ -6,7 +6,7 @@ namespace Cataloguer.UI.Mapping
 {
     public class QualityMappingProvider : MappingProvider<QualityViewModel, Quality>
     {
-        public override Quality Map(QualityViewModel source)
+        public override Quality Map(QualityViewModel source, Mapper mapper)
         {
             return new Quality
             {
@@ -15,7 +15,7 @@ namespace Cataloguer.UI.Mapping
             };
         }
 
-        public override QualityViewModel Map(Quality dest)
+        public override QualityViewModel Map(Quality dest, Mapper mapper)
         {
             return new QualityViewModel
             {

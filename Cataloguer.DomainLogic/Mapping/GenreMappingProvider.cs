@@ -6,7 +6,7 @@ namespace Cataloguer.DomainLogic.Mapping
 {
     public class GenreMappingProvider : MappingProvider<Genre, GenreDTO>
     {
-        public override GenreDTO Map(Genre source)
+        public override GenreDTO Map(Genre source, Mapper mapper)
         {
             return new GenreDTO
             {
@@ -15,7 +15,7 @@ namespace Cataloguer.DomainLogic.Mapping
             };
         }
 
-        public override Genre Map(GenreDTO dest)
+        public override Genre Map(GenreDTO dest, Mapper mapper)
         {
             return new Genre
             {
