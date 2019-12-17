@@ -20,6 +20,7 @@ namespace Cataloguer.UI.Adapters
                 .Select(value => new ColumnHeader
                 {
                     Text = value,
+                    Width = -2,
                 });
         }
 

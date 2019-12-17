@@ -6,7 +6,7 @@ namespace Cataloguer.DomainLogic.Mapping
 {
     public class CompanyMappingProvider : MappingProvider<Company, CompanyDTO>
     {
-        public override CompanyDTO Map(Company source)
+        public override CompanyDTO Map(Company source, Mapper mapper)
         {
             return new CompanyDTO
             {
@@ -15,7 +15,7 @@ namespace Cataloguer.DomainLogic.Mapping
             };
         }
 
-        public override Company Map(CompanyDTO dest)
+        public override Company Map(CompanyDTO dest, Mapper mapper)
         {
             return new Company
             {

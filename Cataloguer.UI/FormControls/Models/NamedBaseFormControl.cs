@@ -33,7 +33,7 @@ namespace Cataloguer.UI.FormControls.Models
 
         protected override Control CreateControl()
         {
-            return new Container()
+            return Defaults.Container
                 .With(_nameControl = new FormTextBox("Название"));
         }
     }

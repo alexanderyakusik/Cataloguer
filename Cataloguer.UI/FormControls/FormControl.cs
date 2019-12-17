@@ -29,5 +29,17 @@ namespace Cataloguer.UI.FormControls
 
             return point;
         }
+
+        protected Point OffsetFromLast(Control container, int dx, int dy)
+        {
+            Control lastChild = container.Controls[container.Controls.Count - 1];
+
+            return Offset(lastChild, dx, dy);
+        }
+
+        protected int GetFullWidth(Control control, Control container)
+        {
+            return container.Size.Width - 2 * control.Location.X - 1;
+        }
     }
 }

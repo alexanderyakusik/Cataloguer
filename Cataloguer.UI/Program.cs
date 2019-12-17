@@ -23,7 +23,7 @@ namespace Cataloguer.UI
 
             container.Resolve<Initializer>().Run();
 
-            Application.Run(container.Resolve<Cataloguer>());
+            Application.Run(container.Resolve<MovieForm>());
         }
     }
 }

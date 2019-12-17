@@ -6,7 +6,7 @@ namespace Cataloguer.DomainLogic.Mapping
 {
     public class FormatMappingProvider : MappingProvider<Format, FormatDTO>
     {
-        public override FormatDTO Map(Format source)
+        public override FormatDTO Map(Format source, Mapper mapper)
         {
             return new FormatDTO
             {
@@ -15,7 +15,7 @@ namespace Cataloguer.DomainLogic.Mapping
             };
         }
 
-        public override Format Map(FormatDTO dest)
+        public override Format Map(FormatDTO dest, Mapper mapper)
         {
             return new Format
             {

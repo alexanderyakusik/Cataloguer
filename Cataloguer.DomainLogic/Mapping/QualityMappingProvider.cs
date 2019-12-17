@@ -6,7 +6,7 @@ namespace Cataloguer.DomainLogic.Mapping
 {
     public class QualityMappingProvider : MappingProvider<Quality, QualityDTO>
     {
-        public override QualityDTO Map(Quality source)
+        public override QualityDTO Map(Quality source, Mapper mapper)
         {
             return new QualityDTO
             {
@@ -15,7 +15,7 @@ namespace Cataloguer.DomainLogic.Mapping
             };
         }
 
-        public override Quality Map(QualityDTO dest)
+        public override Quality Map(QualityDTO dest, Mapper mapper)
         {
             return new Quality
             {

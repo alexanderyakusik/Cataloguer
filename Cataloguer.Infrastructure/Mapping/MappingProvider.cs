@@ -6,18 +6,18 @@ namespace Cataloguer.Infrastructure.Mapping
         where T1 : class
         where T2 : class
     {
-        public abstract T2 Map(T1 source);
+        public abstract T2 Map(T1 source, Mapper mapper);
 
-        public abstract T1 Map(T2 dest);
+        public abstract T1 Map(T2 dest, Mapper mapper);
 
-        object IMappingProvider.Map(object obj)
+        object IMappingProvider.Map(object obj, Mapper mapper)
         {
             if (obj is T1 source)
             {
-                return Map(source);
+                return Map(source, mapper);
             }
 
-            return Map((T2)obj);
+            return Map((T2)obj, mapper);
         }
     }
 }
