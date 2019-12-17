@@ -1,10 +1,10 @@
-﻿using Cataloguer.UI.ViewModels.BaseClasses;
+﻿using Cataloguer.DomainLogic.Interfaces.Models.BaseClasses;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Cataloguer.UI.Adapters
 {
-    public interface IListViewAdapter<in T> where T : BaseViewModel
+    public interface IListViewAdapter<in T> where T : BaseModel
     {
         string ViewName { get; }
 

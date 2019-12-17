@@ -87,25 +87,11 @@
     <Compile Include="FormControls\Models\GenreFormControl.cs" />
     <Compile Include="FormControls\Models\NamedBaseFormControl.cs" />
     <Compile Include="FormControls\Models\QualityFormControl.cs" />
-    <Compile Include="Mapping\CompanyMappingProvider.cs" />
-    <Compile Include="Mapping\GenreMappingProvider.cs" />
-    <Compile Include="Mapping\FormatMappingProvider.cs" />
-    <Compile Include="Mapping\MovieMappingProvider.cs" />
-    <Compile Include="Mapping\PosterMappingProvider.cs" />
-    <Compile Include="Mapping\QualityMappingProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\Dropdown\CompanyDropdownProvider.cs" />
     <Compile Include="Providers\Dropdown\IDropdownValuesProvider.cs" />
     <Compile Include="Resolvers\CrudFormResolver.cs" />
-    <Compile Include="ViewModels\BaseClasses\BaseViewModel.cs" />
-    <Compile Include="ViewModels\BaseClasses\NamedBaseViewModel.cs" />
-    <Compile Include="ViewModels\CompanyViewModel.cs" />
-    <Compile Include="ViewModels\FormatViewModel.cs" />
-    <Compile Include="ViewModels\GenreViewModel.cs" />
-    <Compile Include="ViewModels\MovieViewModel.cs" />
-    <Compile Include="ViewModels\PosterViewModel.cs" />
-    <Compile Include="ViewModels\QualityViewModel.cs" />
     <EmbeddedResource Include="MovieForm.resx">
       <DependentUpon>MovieForm.cs</DependentUpon>
     </EmbeddedResource>

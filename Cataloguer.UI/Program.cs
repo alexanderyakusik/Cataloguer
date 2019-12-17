@@ -1,4 +1,5 @@
-﻿using Cataloguer.Infrastructure.DependencyInjection;
+﻿using Cataloguer.Infrastructure.Configuration;
+using Cataloguer.Infrastructure.DependencyInjection;
 using Cataloguer.Infrastructure.Mapping;
 using System;
 using System.Windows.Forms;
@@ -19,6 +20,8 @@ namespace Cataloguer.UI
             var container = new ContainerBuilder()
                 .WithMapper()
                 .Build();
+
+            container.Resolve<Initializer>().Run();
 
             Application.Run(container.Resolve<MovieForm>());
         }

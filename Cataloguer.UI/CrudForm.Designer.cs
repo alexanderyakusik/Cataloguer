@@ -1,6 +1,6 @@
 ﻿namespace Cataloguer.UI
 {
-    partial class CrudForm<TView, TModel>
+    partial class CrudForm<T>
     {
         /// <summary>
         /// Required designer variable.

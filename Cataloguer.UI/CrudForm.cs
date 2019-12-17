@@ -4,27 +4,25 @@ using Cataloguer.DomainLogic.Interfaces.Services;
 using Cataloguer.Infrastructure.Mapping;
 using Cataloguer.UI.Adapters;
 using Cataloguer.UI.Events;
-using Cataloguer.UI.ViewModels.BaseClasses;
 using System;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace Cataloguer.UI
 {
-    public partial class CrudForm<TView, TModel> : Form
-        where TModel : BaseModel
-        where TView : BaseViewModel
+    public partial class CrudForm<T> : Form
+        where T : BaseModel
     {
         private readonly Mapper _mapper;
-        private readonly IListViewAdapter<TView> _adapter;
-        private readonly ICrudService<TModel> _service;
-        private readonly Func<TView, bool, CrudEditorForm<TView>> _editorFormFactory;
+        private readonly IListViewAdapter<T> _adapter;
+        private readonly ICrudService<T> _service;
+        private readonly Func<T, bool, CrudEditorForm<T>> _editorFormFactory;
 
         public CrudForm(
-            ICrudService<TModel> service,
-            IListViewAdapter<TView> adapter,
+            ICrudService<T> service,
+            IListViewAdapter<T> adapter,
             Mapper mapper,
-            Func<TView, bool, CrudEditorForm<TView>> editorFormFactory
+            Func<T, bool, CrudEditorForm<T>> editorFormFactory
         )
         {
             InitializeComponent();
@@ -47,12 +45,13 @@ namespace Cataloguer.UI
         private void UpdateViewData()
         {
             listView.Items.Clear();
-
             listView.Items.AddRange(
                 _adapter
-                    .GetItems(_service.GetAll().Select(_mapper.Map<TView>))
+                    .GetItems(_service.GetAll())
                     .ToArray()
             );
+
+            UpdateButtons();
         }
 
         private void ButtonBack_Click(object sender, EventArgs e)
@@ -68,7 +67,7 @@ namespace Cataloguer.UI
         private void ButtonUpdate_Click(object sender, EventArgs e)
         {
             int id = GetSelectedItemId();
-            TView viewObject = _mapper.Map<TView>(_service.Get(id));
+            T viewObject = _service.Get(id);
 
             InitializeEditorForm(viewObject, false, OnItemUpdated);
         }
@@ -91,10 +90,15 @@ namespace Cataloguer.UI
             UpdateViewData();
         }
 
-        private void ListView_SelectedIndexChanged(object sender, EventArgs e)
+        private void UpdateButtons()
         {
             bool isItemSelected = listView.SelectedItems.Count > 0;
             buttonUpdate.Enabled = buttonDelete.Enabled = isItemSelected;
+        }
+
+        private void ListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateButtons();
         }
 
         private int GetSelectedItemId()
@@ -103,12 +107,12 @@ namespace Cataloguer.UI
         }
 
         private void InitializeEditorForm(
-            TView @object,
+            T @object,
             bool isCreateMode,
-            EventHandler<ItemSavedEventArgs<TView>> handler
+            EventHandler<ItemSavedEventArgs<T>> handler
         )
         {
-            CrudEditorForm<TView> editorForm = _editorFormFactory(@object, isCreateMode);
+            CrudEditorForm<T> editorForm = _editorFormFactory(@object, isCreateMode);
 
             editorForm.FormClosed += (sender, e) => Show();
             editorForm.ItemSaved += handler;
@@ -134,14 +138,14 @@ namespace Cataloguer.UI
             return true;
         }
 
-        private void OnItemCreated(object sender, ItemSavedEventArgs<TView> e)
+        private void OnItemCreated(object sender, ItemSavedEventArgs<T> e)
         {
-            e.IsHandled = OnItemSaved(() => _service.Create(_mapper.Map<TModel>(e.Item)), true);
+            e.IsHandled = OnItemSaved(() => _service.Create(e.Item), true);
         }
 
-        private void OnItemUpdated(object sender, ItemSavedEventArgs<TView> e)
+        private void OnItemUpdated(object sender, ItemSavedEventArgs<T> e)
         {
-            e.IsHandled = OnItemSaved(() => _service.Update(_mapper.Map<TModel>(e.Item)), false);
+            e.IsHandled = OnItemSaved(() => _service.Update(e.Item), false);
         }
     }
 }

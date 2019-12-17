@@ -1,12 +1,12 @@
-﻿using Cataloguer.UI.Events;
+﻿using Cataloguer.DomainLogic.Interfaces.Models.BaseClasses;
+using Cataloguer.UI.Events;
 using Cataloguer.UI.FormControls;
-using Cataloguer.UI.ViewModels.BaseClasses;
 using System;
 using System.Windows.Forms;
 
 namespace Cataloguer.UI
 {
-    public partial class CrudEditorForm<T> : Form where T : BaseViewModel
+    public partial class CrudEditorForm<T> : Form where T : BaseModel
     {
         private readonly FormControl<T> _formControl;
 

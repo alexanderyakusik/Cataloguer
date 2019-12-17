@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Cataloguer.UI.FormControls
 {
-    public abstract class FormControl<T>
+    public abstract class FormControl<T> 
     {
         private readonly Lazy<Control> _control;
 
