@@ -34,5 +34,10 @@ namespace Cataloguer.UI
             Hide();
             crudForm.Show();
         }
+
+        private void ButtonClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }
