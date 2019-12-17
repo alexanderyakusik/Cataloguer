@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="Models\BaseClasses\BaseModel.cs" />
     <Compile Include="Models\BaseClasses\NamedBaseModel.cs" />
     <Compile Include="Models\Company.cs" />

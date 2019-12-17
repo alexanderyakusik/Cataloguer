@@ -22,5 +22,10 @@ namespace Cataloguer.UI.Adapters
                     Text = value,
                 });
         }
+
+        public int GetItemId(ListViewItem item)
+        {
+            return (int)item.Tag;
+        }
     }
 }

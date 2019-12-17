@@ -59,14 +59,34 @@
     <Compile Include="Cataloguer.Designer.cs">
       <DependentUpon>Cataloguer.cs</DependentUpon>
     </Compile>
+    <Compile Include="CrudEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CrudEditorForm.Designer.cs">
+      <DependentUpon>CrudEditorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CrudForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CrudForm.Designer.cs">
       <DependentUpon>CrudForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\ContainerExtensions.cs" />
+    <Compile Include="FormControls\Container.cs" />
+    <Compile Include="FormControls\FormControl.cs" />
+    <Compile Include="FormControls\FormTextBox.cs" />
     <Compile Include="DependencyInjection\UIModule.cs" />
+    <Compile Include="Events\ItemSavedEventArgs.cs" />
+    <Compile Include="Extensions\ControlExtensions.cs" />
+    <Compile Include="FormControls\Models\CompanyFormControl.cs" />
+    <Compile Include="FormControls\Models\FormatFormControl.cs" />
+    <Compile Include="FormControls\Models\GenreFormControl.cs" />
+    <Compile Include="FormControls\Models\NamedBaseFormControl.cs" />
+    <Compile Include="FormControls\Models\QualityFormControl.cs" />
     <Compile Include="Mapping\CompanyMappingProvider.cs" />
+    <Compile Include="Mapping\GenreMappingProvider.cs" />
+    <Compile Include="Mapping\FormatMappingProvider.cs" />
+    <Compile Include="Mapping\QualityMappingProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resolvers\CrudFormResolver.cs" />
@@ -78,6 +98,9 @@
     <Compile Include="ViewModels\QualityViewModel.cs" />
     <EmbeddedResource Include="Cataloguer.resx">
       <DependentUpon>Cataloguer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrudEditorForm.resx">
+      <DependentUpon>CrudEditorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CrudForm.resx">
       <DependentUpon>CrudForm.cs</DependentUpon>
@@ -114,5 +137,6 @@
       <Name>Cataloguer.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

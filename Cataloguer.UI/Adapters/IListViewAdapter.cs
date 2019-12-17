@@ -11,5 +11,7 @@ namespace Cataloguer.UI.Adapters
         IEnumerable<ColumnHeader> GetColumns();
 
         IEnumerable<ListViewItem> GetItems(IEnumerable<T> models);
+
+        int GetItemId(ListViewItem item);
     }
 }

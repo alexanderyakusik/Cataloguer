@@ -47,7 +47,8 @@ namespace Cataloguer.DomainLogic.Services.BaseClasses
         public virtual IEnumerable<TModel> GetAll()
         {
             return DAO.GetAll()
-                .Select(Mapper.Map<TModel>);
+                .Select(Mapper.Map<TModel>)
+                .OrderBy(item => item.Id);
         }
 
         public virtual void Update(TModel entity)

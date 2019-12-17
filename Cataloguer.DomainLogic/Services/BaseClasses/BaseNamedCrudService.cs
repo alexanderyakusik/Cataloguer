@@ -1,10 +1,10 @@
 ﻿using Cataloguer.Data.DAO;
 using Cataloguer.Data.DAO.BaseClasses;
 using Cataloguer.Data.DTO.BaseClasses;
+using Cataloguer.DomainLogic.Interfaces.Exceptions;
 using Cataloguer.DomainLogic.Interfaces.Models.BaseClasses;
 using Cataloguer.Infrastructure.Configuration;
 using Cataloguer.Infrastructure.Mapping;
-using System;
 using System.Linq;
 
 namespace Cataloguer.DomainLogic.Services.BaseClasses
@@ -44,7 +44,7 @@ namespace Cataloguer.DomainLogic.Services.BaseClasses
 
             if (entityExists)
             {
-                throw new ApplicationException($"Entity with name {entity.Name} already exists.");
+                throw new ValidationException($"Объект с именем {entity.Name} уже существует.");
             }
         }
     }
