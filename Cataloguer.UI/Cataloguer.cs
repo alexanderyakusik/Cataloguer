@@ -1,4 +1,4 @@
-﻿using Cataloguer.UI.ViewModels;
+﻿using Cataloguer.DomainLogic.Interfaces.Models;
 using System;
 using System.Windows.Forms;
 
@@ -19,10 +19,10 @@ namespace Cataloguer.UI
 
         private void LinkModelsTypes()
         {
-            companiesMenuItem.Tag = typeof(CompanyViewModel);
-            qualitiesMenuItem.Tag = typeof(QualityViewModel);
-            formatsMenuItem.Tag = typeof(FormatViewModel);
-            genresMenuItem.Tag = typeof(GenreViewModel);
+            companiesMenuItem.Tag = typeof(Company);
+            qualitiesMenuItem.Tag = typeof(Quality);
+            formatsMenuItem.Tag = typeof(Format);
+            genresMenuItem.Tag = typeof(Genre);
         }
 
         private void MenuGroupMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)

@@ -1,11 +1,11 @@
-﻿using Cataloguer.UI.ViewModels.BaseClasses;
+﻿using Cataloguer.DomainLogic.Interfaces.Models.BaseClasses;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace Cataloguer.UI.Adapters
 {
-    public abstract class BaseListViewAdapter<T> : IListViewAdapter<T> where T : BaseViewModel
+    public abstract class BaseListViewAdapter<T> : IListViewAdapter<T> where T : BaseModel
     {
         protected abstract Dictionary<string, string> Mappings { get; }
 

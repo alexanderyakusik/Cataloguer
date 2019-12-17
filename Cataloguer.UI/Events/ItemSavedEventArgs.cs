@@ -1,9 +1,9 @@
-﻿using Cataloguer.UI.ViewModels.BaseClasses;
+﻿using Cataloguer.DomainLogic.Interfaces.Models.BaseClasses;
 using System;
 
 namespace Cataloguer.UI.Events
 {
-    public class ItemSavedEventArgs<T> : EventArgs where T : BaseViewModel
+    public class ItemSavedEventArgs<T> : EventArgs where T : BaseModel
     {
         public T Item { get; }
 

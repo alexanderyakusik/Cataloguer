@@ -1,8 +1,8 @@
-﻿using Cataloguer.UI.ViewModels;
+﻿using Cataloguer.DomainLogic.Interfaces.Models;
 
 namespace Cataloguer.UI.FormControls.Models
 {
-    public class QualityFormControl : NamedBaseFormControl<QualityViewModel>
+    public class QualityFormControl : NamedBaseFormControl<Quality>
     {
     }
 }

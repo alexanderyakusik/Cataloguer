@@ -1,10 +1,10 @@
-﻿using Cataloguer.UI.Extensions;
-using Cataloguer.UI.ViewModels.BaseClasses;
+﻿using Cataloguer.DomainLogic.Interfaces.Models.BaseClasses;
+using Cataloguer.UI.Extensions;
 using System.Windows.Forms;
 
 namespace Cataloguer.UI.FormControls.Models
 {
-    public class NamedBaseFormControl<T> : FormControl<T> where T : NamedBaseViewModel, new()
+    public class NamedBaseFormControl<T> : FormControl<T> where T : NamedBaseModel, new()
     {
         private readonly T _model = new T();
         private FormTextBox _nameControl;

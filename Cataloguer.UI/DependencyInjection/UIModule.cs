@@ -6,7 +6,6 @@ using Cataloguer.Infrastructure.Mapping;
 using Cataloguer.UI.Adapters;
 using Cataloguer.UI.FormControls.Models;
 using Cataloguer.UI.Resolvers;
-using Cataloguer.UI.ViewModels;
 using System;
 using System.Windows.Forms;
 
@@ -26,33 +25,33 @@ namespace Cataloguer.UI.DependencyInjection
             var genreAdapter = new GenreListViewAdapter();
 
             container
-                .RegisterAs<IListViewAdapter<CompanyViewModel>, CompanyListViewAdapter>(companyAdapter)
-                .RegisterAs<IListViewAdapter<QualityViewModel>, NamedBaseListViewAdapter>(qualityAdapter)
-                .RegisterAs<IListViewAdapter<FormatViewModel>, NamedBaseListViewAdapter>(formatAdapter)
-                .RegisterAs<IListViewAdapter<GenreViewModel>, NamedBaseListViewAdapter>(genreAdapter)
-                .Register(() => new CrudForm<CompanyViewModel, Company>(
+                .RegisterAs<IListViewAdapter<Company>, CompanyListViewAdapter>(companyAdapter)
+                .RegisterAs<IListViewAdapter<Quality>, NamedBaseListViewAdapter>(qualityAdapter)
+                .RegisterAs<IListViewAdapter<Format>, NamedBaseListViewAdapter>(formatAdapter)
+                .RegisterAs<IListViewAdapter<Genre>, NamedBaseListViewAdapter>(genreAdapter)
+                .Register(() => new CrudForm<Company>(
                     container.Resolve<ICompanyService>(),
                     companyAdapter,
                     mapper,
-                    (company, isCreateMode) => new CrudEditorForm<CompanyViewModel>(company, isCreateMode, new CompanyFormControl())
+                    (company, isCreateMode) => new CrudEditorForm<Company>(company, isCreateMode, new CompanyFormControl())
                 ))
-                .Register(() => new CrudForm<QualityViewModel, Quality>(
+                .Register(() => new CrudForm<Quality>(
                     container.Resolve<IQualityService>(),
                     qualityAdapter,
                     mapper,
-                    (quality, isCreateMode) => new CrudEditorForm<QualityViewModel>(quality, isCreateMode, new QualityFormControl())
+                    (quality, isCreateMode) => new CrudEditorForm<Quality>(quality, isCreateMode, new QualityFormControl())
                 ))
-                .Register(() => new CrudForm<FormatViewModel, Format>(
+                .Register(() => new CrudForm<Format>(
                     container.Resolve<IFormatService>(),
                     formatAdapter,
                     mapper,
-                    (format, isCreateMode) => new CrudEditorForm<FormatViewModel>(format, isCreateMode, new FormatFormControl())
+                    (format, isCreateMode) => new CrudEditorForm<Format>(format, isCreateMode, new FormatFormControl())
                 ))
-                .Register(() => new CrudForm<GenreViewModel, Genre>(
+                .Register(() => new CrudForm<Genre>(
                     container.Resolve<IGenreService>(),
                     genreAdapter,
                     mapper,
-                    (genre, isCreateMode) => new CrudEditorForm<GenreViewModel>(genre, isCreateMode, new GenreFormControl())
+                    (genre, isCreateMode) => new CrudEditorForm<Genre>(genre, isCreateMode, new GenreFormControl())
                 ));
 
             var resolver = new CrudFormResolver();
