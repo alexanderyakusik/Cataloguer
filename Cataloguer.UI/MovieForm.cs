@@ -1,7 +1,6 @@
 ﻿using Cataloguer.DomainLogic.Interfaces.Exceptions;
 using Cataloguer.DomainLogic.Interfaces.Models;
 using Cataloguer.DomainLogic.Interfaces.Services;
-using Cataloguer.Infrastructure.Mapping;
 using Cataloguer.UI.Adapters;
 using Cataloguer.UI.Events;
 using System;
@@ -14,7 +13,7 @@ namespace Cataloguer.UI
     {
         private readonly Func<Type, Form> _crudFormFactory;
         private readonly Func<Movie, bool, CrudEditorForm<Movie>> _crudEditorFormFactory;
-        private readonly Mapper _mapper;
+        private readonly Func<int, MovieDetailsForm> _movieDetailsFormFactory;
         private readonly IListViewAdapter<Movie> _adapter;
         private readonly ICrudService<Movie> _service;
 
@@ -22,17 +21,17 @@ namespace Cataloguer.UI
             Func<Type, Form> crudFormFactory,
             ICrudService<Movie> service,
             IListViewAdapter<Movie> adapter,
-            Mapper mapper,
-            Func<Movie, bool, CrudEditorForm<Movie>> crudEditorFormFactory
+            Func<Movie, bool, CrudEditorForm<Movie>> crudEditorFormFactory,
+            Func<int, MovieDetailsForm> movieDetailsFormFactory
         )
         {
             InitializeComponent();
 
             _crudEditorFormFactory = crudEditorFormFactory;
+            _movieDetailsFormFactory = movieDetailsFormFactory;
             _crudFormFactory = crudFormFactory;
             _service = service;
             _adapter = adapter;
-            _mapper = mapper;
 
             LinkModelsTypes();
             InitializeView();
@@ -69,7 +68,7 @@ namespace Cataloguer.UI
         private void UpdateButtons()
         {
             bool isItemSelected = listView.SelectedItems.Count > 0;
-            buttonUpdate.Enabled = buttonDelete.Enabled = isItemSelected;
+            buttonDetails.Enabled = buttonUpdate.Enabled = buttonDelete.Enabled = isItemSelected;
         }
 
         private void MenuGroupMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -168,6 +167,17 @@ namespace Cataloguer.UI
         private void ListView_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateButtons();
+        }
+
+        private void ButtonDetails_Click(object sender, EventArgs e)
+        {
+            int id = GetSelectedItemId();
+            MovieDetailsForm detailsForm = _movieDetailsFormFactory(id);
+
+            detailsForm.FormClosed += (_sender, _e) => Show();
+
+            Hide();
+            detailsForm.Show();
         }
     }
 }

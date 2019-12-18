@@ -1,4 +1,5 @@
 ﻿using Cataloguer.DomainLogic.Interfaces.Models;
+using Cataloguer.UI.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -31,7 +32,7 @@ namespace Cataloguer.UI.Adapters
                     li.SubItems.AddRange(new[]
                     {
                         item.Genre.Name,
-                        $"{item.Runtime.Hours}ч {item.Runtime.Minutes}мин",
+                        item.Runtime.ToShortForm(),
                         item.Quality.Name
                     });
 

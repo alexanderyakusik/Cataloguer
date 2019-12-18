@@ -54,11 +54,18 @@
     <Compile Include="Adapters\MovieListViewAdapter.cs" />
     <Compile Include="Adapters\NamedBaseListViewAdapter.cs" />
     <Compile Include="Adapters\QualityListViewAdapter.cs" />
+    <Compile Include="Extensions\TimeSpanExtensions.cs" />
     <Compile Include="FormControls\Defaults.cs" />
     <Compile Include="FormControls\Dropdown\DropdownValue.cs" />
     <Compile Include="FormControls\Dropdown\FormDropdown.cs" />
     <Compile Include="FormControls\LabelledFormControl.cs" />
     <Compile Include="FormControls\Models\MovieFormControl.cs" />
+    <Compile Include="MovieDetailsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MovieDetailsForm.Designer.cs">
+      <DependentUpon>MovieDetailsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MovieForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +99,9 @@
     <Compile Include="Providers\Dropdown\DropdownValuesProvider.cs" />
     <Compile Include="Providers\Dropdown\NamedBaseDropdownValuesProvider.cs" />
     <Compile Include="Resolvers\CrudFormResolver.cs" />
+    <EmbeddedResource Include="MovieDetailsForm.resx">
+      <DependentUpon>MovieDetailsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MovieForm.resx">
       <DependentUpon>MovieForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -1,7 +1,6 @@
 ﻿using Cataloguer.DomainLogic.Interfaces.Exceptions;
 using Cataloguer.DomainLogic.Interfaces.Models.BaseClasses;
 using Cataloguer.DomainLogic.Interfaces.Services;
-using Cataloguer.Infrastructure.Mapping;
 using Cataloguer.UI.Adapters;
 using Cataloguer.UI.Events;
 using System;
@@ -13,7 +12,6 @@ namespace Cataloguer.UI
     public partial class CrudForm<T> : Form
         where T : BaseModel
     {
-        private readonly Mapper _mapper;
         private readonly IListViewAdapter<T> _adapter;
         private readonly ICrudService<T> _service;
         private readonly Func<T, bool, CrudEditorForm<T>> _editorFormFactory;
@@ -21,7 +19,6 @@ namespace Cataloguer.UI
         public CrudForm(
             ICrudService<T> service,
             IListViewAdapter<T> adapter,
-            Mapper mapper,
             Func<T, bool, CrudEditorForm<T>> editorFormFactory
         )
         {
@@ -29,7 +26,6 @@ namespace Cataloguer.UI
 
             _service = service;
             _adapter = adapter;
-            _mapper = mapper;
             _editorFormFactory = editorFormFactory;
 
             InitializeView();

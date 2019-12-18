@@ -18,8 +18,6 @@ namespace Cataloguer.UI.DependencyInjection
 
         public void RegisterDependencies(Container container)
         {
-            var mapper = container.Resolve<Mapper>();
-
             var companyAdapter = new CompanyListViewAdapter();
             var qualityAdapter = new QualityListViewAdapter();
             var formatAdapter = new FormatListViewAdapter();
@@ -34,25 +32,21 @@ namespace Cataloguer.UI.DependencyInjection
                 .Register(() => new CrudForm<Company>(
                     container.Resolve<ICompanyService>(),
                     companyAdapter,
-                    mapper,
                     (company, isCreateMode) => new CrudEditorForm<Company>(company, isCreateMode, new CompanyFormControl())
                 ))
                 .Register(() => new CrudForm<Quality>(
                     container.Resolve<IQualityService>(),
                     qualityAdapter,
-                    mapper,
                     (quality, isCreateMode) => new CrudEditorForm<Quality>(quality, isCreateMode, new QualityFormControl())
                 ))
                 .Register(() => new CrudForm<Format>(
                     container.Resolve<IFormatService>(),
                     formatAdapter,
-                    mapper,
                     (format, isCreateMode) => new CrudEditorForm<Format>(format, isCreateMode, new FormatFormControl())
                 ))
                 .Register(() => new CrudForm<Genre>(
                     container.Resolve<IGenreService>(),
                     genreAdapter,
-                    mapper,
                     (genre, isCreateMode) => new CrudEditorForm<Genre>(genre, isCreateMode, new GenreFormControl())
                 ));
 
@@ -76,8 +70,8 @@ namespace Cataloguer.UI.DependencyInjection
                     crudFormFactory,
                     container.Resolve<IMovieService>(),
                     movieAdapter,
-                    mapper,
-                    (movie, isCreateMode) => new CrudEditorForm<Movie>(movie, isCreateMode, movieFormControlFactory())
+                    (movie, isCreateMode) => new CrudEditorForm<Movie>(movie, isCreateMode, movieFormControlFactory()),
+                    (id) => new MovieDetailsForm(id, container.Resolve<IMovieService>())
                 ));
         }
     }
