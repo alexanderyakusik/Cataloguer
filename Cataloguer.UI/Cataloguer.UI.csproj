@@ -54,6 +54,7 @@
     <Compile Include="Adapters\MovieListViewAdapter.cs" />
     <Compile Include="Adapters\NamedBaseListViewAdapter.cs" />
     <Compile Include="Adapters\QualityListViewAdapter.cs" />
+    <Compile Include="FormControls\DatePicker\DatePicker.cs" />
     <Compile Include="FormControls\Defaults.cs" />
     <Compile Include="FormControls\Dropdown\DropdownValue.cs" />
     <Compile Include="FormControls\Dropdown\FormDropdown.cs" />

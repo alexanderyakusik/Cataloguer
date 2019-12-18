@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Windows.Forms;
-using Cataloguer.DomainLogic.Interfaces.Models;
+﻿using Cataloguer.DomainLogic.Interfaces.Models;
 using Cataloguer.UI.Extensions;
+using Cataloguer.UI.FormControls.DatePicker;
 using Cataloguer.UI.FormControls.Dropdown;
 using Cataloguer.UI.Providers.Dropdown;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Cataloguer.UI.FormControls.Models
 {
@@ -28,6 +29,7 @@ namespace Cataloguer.UI.FormControls.Models
         private FormDropdown _genreControl;
         private FormDropdown _qualityControl;
         private FormDropdown _formatControl;
+        private FormDatePicker _dateControl;
 
         public override Movie Value
         {
@@ -82,6 +84,8 @@ namespace Cataloguer.UI.FormControls.Models
                 .With(_companyControl = new FormDropdown("Компания", _companyValues))
                 .With(Defaults.Margin(10))
                 .With(_genreControl = new FormDropdown("Жанр", _genreValues))
+                .With(Defaults.Margin(10))
+                .With(_dateControl = new FormDatePicker("Дата выхода"))
                 .With(Defaults.Margin(10))
                 .With(_nameControl = new FormTextBox("Название"));
         }
