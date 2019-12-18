@@ -54,12 +54,13 @@
     <Compile Include="Adapters\MovieListViewAdapter.cs" />
     <Compile Include="Adapters\NamedBaseListViewAdapter.cs" />
     <Compile Include="Adapters\QualityListViewAdapter.cs" />
-    <Compile Include="FormControls\DatePicker\DatePicker.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="FormControls\DatePicker\FormDatePicker.cs" />
     <Compile Include="Extensions\TimeSpanExtensions.cs" />
     <Compile Include="FormControls\Defaults.cs" />
     <Compile Include="FormControls\Dropdown\DropdownValue.cs" />
     <Compile Include="FormControls\Dropdown\FormDropdown.cs" />
-    <Compile Include="FormControls\DurationPicker\DurationPicker.cs" />
+    <Compile Include="FormControls\DurationPicker\FormDurationPicker.cs" />
     <Compile Include="FormControls\LabelledFormControl.cs" />
     <Compile Include="FormControls\Models\MovieFormControl.cs" />
     <Compile Include="MovieDetailsForm.cs">

@@ -18,7 +18,7 @@ namespace Cataloguer.UI
         {
             SetText(labelName, movie.Name);
             SetText(labelGenre, movie.Genre.Name);
-            SetText(labelReleaseDate, movie.ReleaseDate.ToString("D", new System.Globalization.CultureInfo("ru-RU")));
+            SetText(labelReleaseDate, movie.ReleaseDate.ToLocaleDate());
             SetText(labelRuntime, movie.Runtime.ToShortForm());
             SetText(labelCompany, movie.Company.Name);
             SetText(labelQuality, movie.Quality.Name);

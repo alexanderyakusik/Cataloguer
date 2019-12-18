@@ -30,7 +30,7 @@ namespace Cataloguer.UI.FormControls.Models
         private FormDropdown _genreControl;
         private FormDropdown _qualityControl;
         private FormDropdown _formatControl;
-        private FormDatePicker _dateControl;
+        private FormDatePicker _releaseDateControl;
         private FormDurationPicker _durationControl; 
 
         public override Movie Value
@@ -42,6 +42,8 @@ namespace Cataloguer.UI.FormControls.Models
                 _value.Genre.Id = _genreControl.Value ?? 0;
                 _value.Format.Id = _formatControl.Value ?? 0;
                 _value.Quality.Id = _qualityControl.Value ?? 0;
+                _value.Runtime = _durationControl.Value;
+                _value.ReleaseDate = _releaseDateControl.Value;
 
                 return _value;
             }
@@ -59,6 +61,8 @@ namespace Cataloguer.UI.FormControls.Models
                 _genreControl.Value = _value.Genre.Id = value.Genre.Id;
                 _formatControl.Value = _value.Format.Id = value.Format.Id;
                 _qualityControl.Value = _value.Quality.Id = value.Quality.Id;
+                _durationControl.Value = _value.Runtime = value.Runtime;
+                _releaseDateControl.Value = _value.ReleaseDate = value.ReleaseDate;
                 _value.Poster.Id = value.Poster.Id;
             }
         }
@@ -85,11 +89,11 @@ namespace Cataloguer.UI.FormControls.Models
                 .With(Defaults.Margin(10))
                 .With(_companyControl = new FormDropdown("Компания", _companyValues))
                 .With(Defaults.Margin(10))
-                .With(_durationControl = new FormDurationPicker("Длительность"))
+                .With(_durationControl = new FormDurationPicker("Продолжительность"))
                 .With(Defaults.Margin(10))
                 .With(_genreControl = new FormDropdown("Жанр", _genreValues))
                 .With(Defaults.Margin(10))
-                .With(_dateControl = new FormDatePicker("Дата выхода"))
+                .With(_releaseDateControl = new FormDatePicker("Дата выхода"))
                 .With(Defaults.Margin(10))
                 .With(_nameControl = new FormTextBox("Название"));
         }

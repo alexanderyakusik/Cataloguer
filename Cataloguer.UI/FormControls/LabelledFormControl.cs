@@ -1,4 +1,5 @@
 ﻿using Cataloguer.UI.Extensions;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Cataloguer.UI.FormControls
@@ -14,9 +15,19 @@ namespace Cataloguer.UI.FormControls
 
         protected override Control CreateControl()
         {
-            var label = new Label { Text = _labelText, Font = Defaults.Font };
+            Control container = Defaults.Container;
 
-            return Defaults.Container
+            var label = new Label
+            {
+                Text = _labelText,
+                Font = Defaults.Font,
+                AutoSize = false,
+                TextAlign = ContentAlignment.TopLeft,
+            };
+
+            container.SizeChanged += (sender, e) => label.Width = GetFullWidth(label, container);
+
+            return container
                 .With(label);
         }
     }

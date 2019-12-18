@@ -14,7 +14,7 @@ namespace Cataloguer.UI.Adapters
         {
             { nameof(Movie.Name), "Название" },
             { nameof(Movie.Genre), "Жанр" },
-            { nameof(Movie.Runtime), "Длительность" },
+            { nameof(Movie.Runtime), "Продолжительность" },
             { nameof(Movie.Quality), "Качество" },
         };
 

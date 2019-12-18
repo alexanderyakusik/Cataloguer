@@ -2,7 +2,6 @@
 using Cataloguer.UI.Extensions;
 using System.Windows.Forms;
 
-
 namespace Cataloguer.UI.FormControls.DatePicker
 {
     public class FormDatePicker : LabelledFormControl<DateTime>
@@ -27,6 +26,8 @@ namespace Cataloguer.UI.FormControls.DatePicker
             {
                 Location = OffsetFromLast(container, dx: 3, dy: 3),
                 Font = Defaults.Font,
+                Format = DateTimePickerFormat.Custom,
+                CustomFormat = "dd MMMM yyyy",
             };
 
             container.SizeChanged += (sender, e) => _datePicker.Width = GetFullWidth(_datePicker, container);
