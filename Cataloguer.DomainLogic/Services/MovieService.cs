@@ -54,14 +54,20 @@ namespace Cataloguer.DomainLogic.Services
                 return;
             }
 
-            _posterService.Delete(movieDto.PosterId);
+            if (movieDto.PosterId.HasValue)
+            {
+                _posterService.Delete(movieDto.PosterId.Value);
+            }
             base.Delete(id);
         }
 
         public override int Create(Movie entity)
         {
             Validate(entity);
-            entity.Poster.Id = _posterService.Create(entity.Poster);
+            if (entity.Poster.Id != 0)
+            {
+                entity.Poster.Id = _posterService.Create(entity.Poster);
+            }
             int id = CreateCore(entity);
 
             return id;
@@ -70,7 +76,17 @@ namespace Cataloguer.DomainLogic.Services
         public override void Update(Movie entity)
         {
             ValidateMovie(entity);
-            _posterService.Update(entity.Poster);
+            if (entity.Poster.Image != null)
+            {
+                if (entity.Poster.Id == 0)
+                {
+                    entity.Poster.Id = _posterService.Create(entity.Poster);
+                }
+                else
+                {
+                    _posterService.Update(entity.Poster);
+                }
+            }
             UpdateCore(entity);
         }
 
@@ -88,7 +104,10 @@ namespace Cataloguer.DomainLogic.Services
             movie.Quality.Name = Storage.QualityDAO.Get(movie.Quality.Id)?.Name ?? throw new ApplicationException($"Quality with id {movie.Quality.Id} doesn't exist.");
             movie.Format.Name = Storage.FormatDAO.Get(movie.Format.Id)?.Name ?? throw new ApplicationException($"Format with id {movie.Format.Id} doesn't exist.");
 
-            movie.Poster.Image = _posterService.Get(movie.Poster.Id)?.Image ?? throw new ApplicationException($"Poster with id {movie.Poster.Id} doesn't exist.");
+            if (movie.Poster.Id != 0)
+            {
+                movie.Poster.Image = _posterService.Get(movie.Poster.Id)?.Image ?? throw new ApplicationException($"Poster with id {movie.Poster.Id} doesn't exist.");
+            }
 
             return movie;
         }

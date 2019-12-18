@@ -30,6 +30,7 @@
         {
             this.labelName = new System.Windows.Forms.Label();
             this.panelPoster = new System.Windows.Forms.Panel();
+            this.labelMissingPoster = new System.Windows.Forms.Label();
             this.labelGenreDescription = new System.Windows.Forms.Label();
             this.labelReleaseDate = new System.Windows.Forms.Label();
             this.labelReleaseDateDescription = new System.Windows.Forms.Label();
@@ -43,8 +44,9 @@
             this.labelQualityDescription = new System.Windows.Forms.Label();
             this.labelGenre = new System.Windows.Forms.Label();
             this.buttonBack = new System.Windows.Forms.Button();
-            this.labelMissingPoster = new System.Windows.Forms.Label();
+            this.pictureBoxPoster = new System.Windows.Forms.PictureBox();
             this.panelPoster.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPoster)).BeginInit();
             this.SuspendLayout();
             // 
             // labelName
@@ -60,11 +62,24 @@
             // panelPoster
             // 
             this.panelPoster.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelPoster.Controls.Add(this.pictureBoxPoster);
             this.panelPoster.Controls.Add(this.labelMissingPoster);
             this.panelPoster.Location = new System.Drawing.Point(17, 74);
             this.panelPoster.Name = "panelPoster";
             this.panelPoster.Size = new System.Drawing.Size(294, 364);
             this.panelPoster.TabIndex = 1;
+            // 
+            // labelMissingPoster
+            // 
+            this.labelMissingPoster.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelMissingPoster.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelMissingPoster.Location = new System.Drawing.Point(0, 0);
+            this.labelMissingPoster.Name = "labelMissingPoster";
+            this.labelMissingPoster.Size = new System.Drawing.Size(292, 362);
+            this.labelMissingPoster.TabIndex = 0;
+            this.labelMissingPoster.Text = "Изображение отсутствует";
+            this.labelMissingPoster.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelMissingPoster.Visible = false;
             // 
             // labelGenreDescription
             // 
@@ -197,17 +212,16 @@
             this.buttonBack.UseVisualStyleBackColor = true;
             this.buttonBack.Click += new System.EventHandler(this.ButtonBack_Click);
             // 
-            // labelMissingPoster
+            // pictureBoxPoster
             // 
-            this.labelMissingPoster.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelMissingPoster.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelMissingPoster.Location = new System.Drawing.Point(0, 0);
-            this.labelMissingPoster.Name = "labelMissingPoster";
-            this.labelMissingPoster.Size = new System.Drawing.Size(292, 362);
-            this.labelMissingPoster.TabIndex = 0;
-            this.labelMissingPoster.Text = "Изображение отсутствует";
-            this.labelMissingPoster.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelMissingPoster.Visible = false;
+            this.pictureBoxPoster.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxPoster.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxPoster.Name = "pictureBoxPoster";
+            this.pictureBoxPoster.Size = new System.Drawing.Size(292, 362);
+            this.pictureBoxPoster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxPoster.TabIndex = 1;
+            this.pictureBoxPoster.TabStop = false;
+            this.pictureBoxPoster.Visible = false;
             // 
             // MovieDetailsForm
             // 
@@ -232,6 +246,7 @@
             this.Name = "MovieDetailsForm";
             this.Text = "Детали";
             this.panelPoster.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPoster)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -254,5 +269,6 @@
         private System.Windows.Forms.Label labelGenre;
         private System.Windows.Forms.Button buttonBack;
         private System.Windows.Forms.Label labelMissingPoster;
+        private System.Windows.Forms.PictureBox pictureBoxPoster;
     }
 }

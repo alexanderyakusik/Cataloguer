@@ -21,20 +21,27 @@ namespace Cataloguer.UI.FormControls
 
         protected abstract Control CreateControl();
 
-        protected Point Offset(Control from, int dx, int dy)
+        protected Point Offset(Control from, int dx, int dy, bool horizontal = false)
         {
             Point point = from.Location;
-            point.Offset(0, from.Size.Height);
+            if (horizontal)
+            {
+                point.Offset(from.Size.Width, 0);
+            }
+            else
+            {
+                point.Offset(0, from.Size.Height);
+            }
             point.Offset(dx, dy);
 
             return point;
         }
 
-        protected Point OffsetFromLast(Control container, int dx, int dy)
+        protected Point OffsetFromLast(Control container, int dx, int dy, bool horizontal = false)
         {
             Control lastChild = container.Controls[container.Controls.Count - 1];
 
-            return Offset(lastChild, dx, dy);
+            return Offset(lastChild, dx, dy, horizontal);
         }
 
         protected int GetFullWidth(Control control, Control container)

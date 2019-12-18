@@ -17,7 +17,7 @@ namespace Cataloguer.DomainLogic.Mapping
                 CompanyId = source.Company.Id,
                 FormatId = source.Format.Id,
                 GenreId = source.Genre.Id,
-                PosterId = source.Poster.Id,
+                PosterId = source.Poster.Id != 0 ? (int?)source.Poster.Id : null,
                 QualityId = source.Quality.Id,
             };
         }
@@ -34,7 +34,7 @@ namespace Cataloguer.DomainLogic.Mapping
                 Format = new Format { Id = dest.FormatId },
                 Genre = new Genre { Id = dest.GenreId },
                 Quality = new Quality { Id = dest.QualityId },
-                Poster = new Poster { Id = dest.PosterId },
+                Poster = new Poster { Id = dest.PosterId ?? 0 },
             };
         }
     }

@@ -61,6 +61,7 @@
     <Compile Include="FormControls\Dropdown\DropdownValue.cs" />
     <Compile Include="FormControls\Dropdown\FormDropdown.cs" />
     <Compile Include="FormControls\DurationPicker\FormDurationPicker.cs" />
+    <Compile Include="FormControls\FormFilePicker.cs" />
     <Compile Include="FormControls\LabelledFormControl.cs" />
     <Compile Include="FormControls\Models\MovieFormControl.cs" />
     <Compile Include="MovieDetailsForm.cs">

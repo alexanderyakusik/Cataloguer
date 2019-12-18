@@ -1,6 +1,9 @@
 ﻿using Cataloguer.DomainLogic.Interfaces.Models;
 using Cataloguer.DomainLogic.Interfaces.Services;
 using Cataloguer.UI.Extensions;
+using System;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Cataloguer.UI
@@ -39,11 +42,24 @@ namespace Cataloguer.UI
                 labelMissingPoster.Visible = true;
                 return;
             }
+
+            pictureBoxPoster.Image = ByteToImage(movie.Poster.Image);
+            pictureBoxPoster.Visible = true;
         }
 
-        private void ButtonBack_Click(object sender, System.EventArgs e)
+        private void ButtonBack_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private static Bitmap ByteToImage(byte[] bytes)
+        {
+            var memoryStream = new MemoryStream();
+            memoryStream.Write(bytes, 0, Convert.ToInt32(bytes.Length));
+            var bitmap = new Bitmap(memoryStream, false);
+            memoryStream.Dispose();
+
+            return bitmap;
         }
     }
 }

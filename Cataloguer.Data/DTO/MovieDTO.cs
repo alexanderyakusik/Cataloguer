@@ -17,6 +17,6 @@ namespace Cataloguer.Data.DTO
 
         public int QualityId { get; set; }
 
-        public int PosterId { get; set; }
+        public int? PosterId { get; set; }
     }
 }

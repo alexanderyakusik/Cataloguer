@@ -17,7 +17,7 @@ namespace Cataloguer.UI.FormControls.Models
             Genre = new Genre(),
             Format = new Format(),
             Quality = new Quality(),
-            Poster = new Poster { Image = new byte[] { 1, 2, 3 } }
+            Poster = new Poster(),
         };
 
         private readonly IEnumerable<DropdownValue> _companyValues;
@@ -31,7 +31,8 @@ namespace Cataloguer.UI.FormControls.Models
         private FormDropdown _qualityControl;
         private FormDropdown _formatControl;
         private FormDatePicker _releaseDateControl;
-        private FormDurationPicker _durationControl; 
+        private FormDurationPicker _durationControl;
+        private FormFilePicker _posterControl;
 
         public override Movie Value
         {
@@ -44,6 +45,7 @@ namespace Cataloguer.UI.FormControls.Models
                 _value.Quality.Id = _qualityControl.Value ?? 0;
                 _value.Runtime = _durationControl.Value;
                 _value.ReleaseDate = _releaseDateControl.Value;
+                _value.Poster.Image = _posterControl.Value;
 
                 return _value;
             }
@@ -63,7 +65,8 @@ namespace Cataloguer.UI.FormControls.Models
                 _qualityControl.Value = _value.Quality.Id = value.Quality.Id;
                 _durationControl.Value = _value.Runtime = value.Runtime;
                 _releaseDateControl.Value = _value.ReleaseDate = value.ReleaseDate;
-                _value.Poster.Id = value.Poster.Id;
+                _posterControl.Value = value.Poster?.Image;
+                _value.Poster = value.Poster;
             }
         }
 
@@ -83,6 +86,8 @@ namespace Cataloguer.UI.FormControls.Models
         protected override Control CreateControl()
         {
             return Defaults.Container
+                .With(_posterControl = new FormFilePicker("Постер"))
+                .With(Defaults.Margin(10))
                 .With(_formatControl = new FormDropdown("Формат", _formatValues))
                 .With(Defaults.Margin(10))
                 .With(_qualityControl = new FormDropdown("Качество", _qualityValues))
