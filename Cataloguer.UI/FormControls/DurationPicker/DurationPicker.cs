@@ -11,7 +11,7 @@ namespace Cataloguer.UI.FormControls.TimePicker
 
         public override TimeSpan Value 
         {
-            get => _durationPicker.Value - new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            get => _durationPicker.Value - new DateTime(_durationPicker.Value.Year, _durationPicker.Value.Month, _durationPicker.Value.Day);
             set => _durationPicker.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day) + value;
         }
 
