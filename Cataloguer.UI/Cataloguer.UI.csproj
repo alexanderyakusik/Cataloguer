@@ -58,6 +58,7 @@
     <Compile Include="FormControls\Defaults.cs" />
     <Compile Include="FormControls\Dropdown\DropdownValue.cs" />
     <Compile Include="FormControls\Dropdown\FormDropdown.cs" />
+    <Compile Include="FormControls\DurationPicker\DurationPicker.cs" />
     <Compile Include="FormControls\LabelledFormControl.cs" />
     <Compile Include="FormControls\Models\MovieFormControl.cs" />
     <Compile Include="MovieForm.cs">

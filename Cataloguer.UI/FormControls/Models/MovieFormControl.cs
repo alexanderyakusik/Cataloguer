@@ -2,6 +2,7 @@
 using Cataloguer.UI.Extensions;
 using Cataloguer.UI.FormControls.DatePicker;
 using Cataloguer.UI.FormControls.Dropdown;
+using Cataloguer.UI.FormControls.TimePicker;
 using Cataloguer.UI.Providers.Dropdown;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -30,6 +31,7 @@ namespace Cataloguer.UI.FormControls.Models
         private FormDropdown _qualityControl;
         private FormDropdown _formatControl;
         private FormDatePicker _dateControl;
+        private FormDurationPicker _durationControl; 
 
         public override Movie Value
         {
@@ -82,6 +84,8 @@ namespace Cataloguer.UI.FormControls.Models
                 .With(_qualityControl = new FormDropdown("Качество", _qualityValues))
                 .With(Defaults.Margin(10))
                 .With(_companyControl = new FormDropdown("Компания", _companyValues))
+                .With(Defaults.Margin(10))
+                .With(_durationControl = new FormDurationPicker("Длительность"))
                 .With(Defaults.Margin(10))
                 .With(_genreControl = new FormDropdown("Жанр", _genreValues))
                 .With(Defaults.Margin(10))
