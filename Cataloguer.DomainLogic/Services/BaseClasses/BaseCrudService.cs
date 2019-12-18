@@ -31,7 +31,22 @@ namespace Cataloguer.DomainLogic.Services.BaseClasses
 
         public virtual int Create(TModel entity)
         {
+            return CreateCore(entity);
+        }
+
+        public virtual void Update(TModel entity)
+        {
+            UpdateCore(entity);
+        }
+
+        protected int CreateCore(TModel entity)
+        {
             return DAO.Create(Mapper.Map<TDto>(entity));
+        }
+
+        protected void UpdateCore(TModel entity)
+        {
+            DAO.Update(Mapper.Map<TDto>(entity));
         }
 
         public virtual void Delete(int id)
@@ -49,11 +64,6 @@ namespace Cataloguer.DomainLogic.Services.BaseClasses
             return DAO.GetAll()
                 .Select(Mapper.Map<TModel>)
                 .OrderBy(item => item.Id);
-        }
-
-        public virtual void Update(TModel entity)
-        {
-            DAO.Update(Mapper.Map<TDto>(entity));
         }
     }
 }

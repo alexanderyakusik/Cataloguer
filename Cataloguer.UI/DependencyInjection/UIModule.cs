@@ -5,6 +5,7 @@ using Cataloguer.Infrastructure.DependencyInjection.Interfaces;
 using Cataloguer.Infrastructure.Mapping;
 using Cataloguer.UI.Adapters;
 using Cataloguer.UI.FormControls.Models;
+using Cataloguer.UI.Providers.Dropdown;
 using Cataloguer.UI.Resolvers;
 using System;
 using System.Windows.Forms;
@@ -63,13 +64,20 @@ namespace Cataloguer.UI.DependencyInjection
                 return (Form)container.Resolve(crudFormType);
             };
 
+            Func<MovieFormControl> movieFormControlFactory = () => new MovieFormControl(
+                new NamedBaseDropdownValuesProvider<Company>(container.Resolve<ICompanyService>()),
+                new NamedBaseDropdownValuesProvider<Genre>(container.Resolve<IGenreService>()),
+                new NamedBaseDropdownValuesProvider<Quality>(container.Resolve<IQualityService>()),
+                new NamedBaseDropdownValuesProvider<Format>(container.Resolve<IFormatService>())
+            );
+
             container
                 .Register(() => new MovieForm(
                     crudFormFactory,
                     container.Resolve<IMovieService>(),
                     movieAdapter,
                     mapper,
-                    (movie, isCreateMode) => new CrudEditorForm<MovieViewModel>(movie, isCreateMode, new MovieFormControl())
+                    (movie, isCreateMode) => new CrudEditorForm<Movie>(movie, isCreateMode, movieFormControlFactory())
                 ));
         }
     }

@@ -24,20 +24,22 @@ namespace Cataloguer.DomainLogic.Services.BaseClasses
 
         public override int Create(TModel entity)
         {
-            ValidateExistingName(entity);
-
+            Validate(entity);
             return base.Create(entity);
         }
 
-        public override void Update(TModel entity)
+        protected virtual void Validate(TModel entity)
         {
-            ValidateExistingName(entity);
-
-            base.Update(entity);
+            ValidateName(entity);
         }
 
-        private void ValidateExistingName(TModel entity)
+        private void ValidateName(TModel entity)
         {
+            if (string.IsNullOrWhiteSpace(entity.Name))
+            {
+                throw new ValidationException($"Необходимо указать правильное имя объекта.");
+            }
+
             bool entityExists = DAO.GetAll()
                 .Select(Mapper.Map<TModel>)
                 .Any(item => item.Name == entity.Name);

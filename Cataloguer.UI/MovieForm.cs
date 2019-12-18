@@ -4,7 +4,6 @@ using Cataloguer.DomainLogic.Interfaces.Services;
 using Cataloguer.Infrastructure.Mapping;
 using Cataloguer.UI.Adapters;
 using Cataloguer.UI.Events;
-using Cataloguer.UI.ViewModels;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -14,17 +13,17 @@ namespace Cataloguer.UI
     public partial class MovieForm : Form
     {
         private readonly Func<Type, Form> _crudFormFactory;
-        private readonly Func<MovieViewModel, bool, CrudEditorForm<MovieViewModel>> _crudEditorFormFactory;
+        private readonly Func<Movie, bool, CrudEditorForm<Movie>> _crudEditorFormFactory;
         private readonly Mapper _mapper;
-        private readonly IListViewAdapter<MovieViewModel> _adapter;
+        private readonly IListViewAdapter<Movie> _adapter;
         private readonly ICrudService<Movie> _service;
 
         public MovieForm(
             Func<Type, Form> crudFormFactory,
             ICrudService<Movie> service,
-            IListViewAdapter<MovieViewModel> adapter,
+            IListViewAdapter<Movie> adapter,
             Mapper mapper,
-            Func<MovieViewModel, bool, CrudEditorForm<MovieViewModel>> crudEditorFormFactory
+            Func<Movie, bool, CrudEditorForm<Movie>> crudEditorFormFactory
         )
         {
             InitializeComponent();
@@ -42,10 +41,10 @@ namespace Cataloguer.UI
 
         private void LinkModelsTypes()
         {
-            companiesMenuItem.Tag = typeof(CompanyViewModel);
-            qualitiesMenuItem.Tag = typeof(QualityViewModel);
-            formatsMenuItem.Tag = typeof(FormatViewModel);
-            genresMenuItem.Tag = typeof(GenreViewModel);
+            companiesMenuItem.Tag = typeof(Company);
+            qualitiesMenuItem.Tag = typeof(Quality);
+            formatsMenuItem.Tag = typeof(Format);
+            genresMenuItem.Tag = typeof(Genre);
         }
 
         private void InitializeView()
@@ -60,9 +59,17 @@ namespace Cataloguer.UI
 
             listView.Items.AddRange(
                 _adapter
-                    .GetItems(_service.GetAll().Select(_mapper.Map<MovieViewModel>))
+                    .GetItems(_service.GetAll())
                     .ToArray()
             );
+
+            UpdateButtons();
+        }
+
+        private void UpdateButtons()
+        {
+            bool isItemSelected = listView.SelectedItems.Count > 0;
+            buttonUpdate.Enabled = buttonDelete.Enabled = isItemSelected;
         }
 
         private void MenuGroupMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -111,18 +118,18 @@ namespace Cataloguer.UI
         private void ButtonUpdate_Click(object sender, EventArgs e)
         {
             int id = GetSelectedItemId();
-            MovieViewModel viewObject = _mapper.Map<MovieViewModel>(_service.Get(id));
+            Movie viewObject = _service.Get(id);
 
             InitializeEditorForm(viewObject, false, OnItemUpdated);
         }
 
         private void InitializeEditorForm(
-            MovieViewModel @object,
+            Movie @object,
             bool isCreateMode,
-            EventHandler<ItemSavedEventArgs<MovieViewModel>> handler
+            EventHandler<ItemSavedEventArgs<Movie>> handler
         )
         {
-            CrudEditorForm<MovieViewModel> editorForm = _crudEditorFormFactory(@object, isCreateMode);
+            CrudEditorForm<Movie> editorForm = _crudEditorFormFactory(@object, isCreateMode);
 
             editorForm.FormClosed += (sender, e) => Show();
             editorForm.ItemSaved += handler;
@@ -148,14 +155,19 @@ namespace Cataloguer.UI
             return true;
         }
 
-        private void OnItemCreated(object sender, ItemSavedEventArgs<MovieViewModel> e)
+        private void OnItemCreated(object sender, ItemSavedEventArgs<Movie> e)
         {
-            e.IsHandled = OnItemSaved(() => _service.Create(_mapper.Map<Movie>(e.Item)), true);
+            e.IsHandled = OnItemSaved(() => _service.Create(e.Item), true);
         }
 
-        private void OnItemUpdated(object sender, ItemSavedEventArgs<MovieViewModel> e)
+        private void OnItemUpdated(object sender, ItemSavedEventArgs<Movie> e)
         {
-            e.IsHandled = OnItemSaved(() => _service.Update(_mapper.Map<Movie>(e.Item)), false);
+            e.IsHandled = OnItemSaved(() => _service.Update(e.Item), false);
+        }
+
+        private void ListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateButtons();
         }
     }
 }

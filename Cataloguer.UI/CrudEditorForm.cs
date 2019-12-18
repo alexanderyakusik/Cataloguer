@@ -1,7 +1,9 @@
-﻿using Cataloguer.DomainLogic.Interfaces.Models.BaseClasses;
+﻿using Cataloguer.DomainLogic.Interfaces.Exceptions;
+using Cataloguer.DomainLogic.Interfaces.Models.BaseClasses;
 using Cataloguer.UI.Events;
 using Cataloguer.UI.FormControls;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Cataloguer.UI
@@ -51,8 +53,31 @@ namespace Cataloguer.UI
 
         private void InitializeForm(T @object, FormControl<T> formControl)
         {
-            panelForm.Controls.Add(formControl);
-            formControl.Value = @object;
+            try
+            {
+                panelForm.Controls.Add(formControl);
+                formControl.Value = @object;
+            }
+            catch (ValidationException e)
+            {
+                MessageBox.Show(e.Message, "Ошибка инициализации формы");
+            }
+        }
+
+        private void PanelForm_SizeChanged(object sender, EventArgs e)
+        {
+            buttonSave.Location = GetNewPoint(buttonSave, panelForm);
+            buttonBack.Location = GetNewPoint(buttonBack, panelForm);
+            Height = buttonSave.Location.Y + buttonSave.Height + 60;
+        }
+
+        private Point GetNewPoint(Control control, Control from)
+        {
+            return new Point
+            {
+                X = control.Location.X,
+                Y = from.Location.Y + from.Height + 20,
+            };
         }
     }
 }

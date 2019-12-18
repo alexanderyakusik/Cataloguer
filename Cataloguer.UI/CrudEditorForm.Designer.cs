@@ -57,10 +57,14 @@
             // 
             // panelForm
             // 
+            this.panelForm.AutoSize = true;
+            this.panelForm.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panelForm.Location = new System.Drawing.Point(25, 24);
+            this.panelForm.MinimumSize = new System.Drawing.Size(320, 0);
             this.panelForm.Name = "panelForm";
-            this.panelForm.Size = new System.Drawing.Size(321, 52);
+            this.panelForm.Size = new System.Drawing.Size(320, 0);
             this.panelForm.TabIndex = 9;
+            this.panelForm.SizeChanged += new System.EventHandler(this.PanelForm_SizeChanged);
             // 
             // CrudEditorForm
             // 
@@ -74,6 +78,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CrudEditorForm";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

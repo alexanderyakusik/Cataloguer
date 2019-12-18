@@ -27,7 +27,7 @@ namespace Cataloguer.UI.FormControls
                 Font = Defaults.Font,
             };
 
-            container.SizeChanged += (sender, e) => _textBox.Width = GetFullWidth(container, _textBox);
+            container.SizeChanged += (sender, e) => _textBox.Width = GetFullWidth(_textBox, container);
 
             return container
                 .With(_textBox);
