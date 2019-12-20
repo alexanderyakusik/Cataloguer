@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\Comparison.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="Models\BaseClasses\BaseModel.cs" />
     <Compile Include="Models\BaseClasses\NamedBaseModel.cs" />
@@ -50,6 +51,8 @@
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\Poster.cs" />
     <Compile Include="Models\Quality.cs" />
+    <Compile Include="Models\Search\MovieSearchModel.cs" />
+    <Compile Include="Models\Search\SearchComparison.cs" />
     <Compile Include="Services\ICompanyService.cs" />
     <Compile Include="Services\ICrudService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

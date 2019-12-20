@@ -49,6 +49,7 @@
     <Compile Include="Mapping\PosterMappingProvider.cs" />
     <Compile Include="Mapping\QualityMappingProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Search\SearchHelper.cs" />
     <Compile Include="Services\BaseClasses\BaseCrudService.cs" />
     <Compile Include="Services\BaseClasses\BaseNamedCrudService.cs" />
     <Compile Include="Services\BaseClasses\BaseService.cs" />

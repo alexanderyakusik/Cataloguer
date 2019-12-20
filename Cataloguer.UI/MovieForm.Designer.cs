@@ -41,6 +41,7 @@
             this.listView = new System.Windows.Forms.ListView();
             this.listViewLabel = new System.Windows.Forms.Label();
             this.buttonDetails = new System.Windows.Forms.Button();
+            this.buttonSearchPanel = new System.Windows.Forms.Button();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,9 +94,9 @@
             // buttonClose
             // 
             this.buttonClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonClose.Location = new System.Drawing.Point(537, 324);
+            this.buttonClose.Location = new System.Drawing.Point(537, 332);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(102, 37);
+            this.buttonClose.Size = new System.Drawing.Size(102, 28);
             this.buttonClose.TabIndex = 12;
             this.buttonClose.Text = "Закрыть";
             this.buttonClose.UseVisualStyleBackColor = true;
@@ -105,9 +106,9 @@
             // 
             this.buttonDelete.Enabled = false;
             this.buttonDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonDelete.Location = new System.Drawing.Point(537, 233);
+            this.buttonDelete.Location = new System.Drawing.Point(537, 265);
             this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(102, 38);
+            this.buttonDelete.Size = new System.Drawing.Size(102, 28);
             this.buttonDelete.TabIndex = 11;
             this.buttonDelete.Text = "Удалить";
             this.buttonDelete.UseVisualStyleBackColor = true;
@@ -117,9 +118,9 @@
             // 
             this.buttonUpdate.Enabled = false;
             this.buttonUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonUpdate.Location = new System.Drawing.Point(537, 183);
+            this.buttonUpdate.Location = new System.Drawing.Point(537, 225);
             this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(102, 38);
+            this.buttonUpdate.Size = new System.Drawing.Size(102, 28);
             this.buttonUpdate.TabIndex = 10;
             this.buttonUpdate.Text = "Изменить";
             this.buttonUpdate.UseVisualStyleBackColor = true;
@@ -128,9 +129,9 @@
             // buttonAdd
             // 
             this.buttonAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonAdd.Location = new System.Drawing.Point(537, 132);
+            this.buttonAdd.Location = new System.Drawing.Point(537, 185);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(102, 38);
+            this.buttonAdd.Size = new System.Drawing.Size(102, 28);
             this.buttonAdd.TabIndex = 9;
             this.buttonAdd.Text = "Добавить";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -163,19 +164,31 @@
             // buttonDetails
             // 
             this.buttonDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonDetails.Location = new System.Drawing.Point(537, 81);
+            this.buttonDetails.Location = new System.Drawing.Point(537, 145);
             this.buttonDetails.Name = "buttonDetails";
-            this.buttonDetails.Size = new System.Drawing.Size(102, 38);
+            this.buttonDetails.Size = new System.Drawing.Size(102, 28);
             this.buttonDetails.TabIndex = 13;
             this.buttonDetails.Text = "Детали";
             this.buttonDetails.UseVisualStyleBackColor = true;
             this.buttonDetails.Click += new System.EventHandler(this.ButtonDetails_Click);
             // 
+            // buttonSearchPanel
+            // 
+            this.buttonSearchPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonSearchPanel.Location = new System.Drawing.Point(537, 81);
+            this.buttonSearchPanel.Name = "buttonSearchPanel";
+            this.buttonSearchPanel.Size = new System.Drawing.Size(102, 28);
+            this.buttonSearchPanel.TabIndex = 14;
+            this.buttonSearchPanel.Text = "Поиск";
+            this.buttonSearchPanel.UseVisualStyleBackColor = true;
+            this.buttonSearchPanel.Click += new System.EventHandler(this.ButtonSearchPanel_Click);
+            // 
             // MovieForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(664, 392);
+            this.ClientSize = new System.Drawing.Size(664, 391);
+            this.Controls.Add(this.buttonSearchPanel);
             this.Controls.Add(this.buttonDetails);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonDelete);
@@ -210,6 +223,7 @@
         private System.Windows.Forms.ListView listView;
         private System.Windows.Forms.Label listViewLabel;
         private System.Windows.Forms.Button buttonDetails;
+        private System.Windows.Forms.Button buttonSearchPanel;
     }
 }
 

@@ -5,43 +5,24 @@ using System.Windows.Forms;
 
 namespace Cataloguer.UI.FormControls.Dropdown
 {
-    public class FormDropdown : LabelledFormControl<int?>
+    public class FormDropdown : BaseFormDropdown<int?>
     {
-        private readonly DropdownValue[] _values;
-        private ComboBox _comboBox;
+        private readonly IEnumerable<DropdownValue> _values;
 
         public override int? Value
         {
-            get => (_comboBox.SelectedItem as DropdownValue)?.Key;
+            get => (ComboBox.SelectedItem as DropdownValue)?.Key;
 
             set
             {
                 DropdownValue dropdownValue = _values.First(val => val.Key == value);
-                _comboBox.SelectedIndex = _comboBox.FindStringExact(dropdownValue.Value);
+                ComboBox.SelectedIndex = ComboBox.FindStringExact(dropdownValue.Value);
             }
         }
 
-        public FormDropdown(string labelText, IEnumerable<DropdownValue> values) : base(labelText)
+        public FormDropdown(string labelText, IEnumerable<DropdownValue> values) : base(labelText, values.ToArray())
         {
-            _values = values.ToArray();
-        }
-
-        protected override Control CreateControl()
-        {
-            var container = base.CreateControl();
-
-            _comboBox = new ComboBox
-            {
-                Font = Defaults.Font,
-                DropDownStyle = ComboBoxStyle.DropDownList,
-                Location = OffsetFromLast(container, dx: 3, dy: 3)
-            };
-            _comboBox.Items.AddRange(_values);
-
-            container.SizeChanged += (sender, e) => _comboBox.Width = GetFullWidth(_comboBox, container);
-
-            return container
-                .With(_comboBox);
+            _values = values;
         }
     }
 }

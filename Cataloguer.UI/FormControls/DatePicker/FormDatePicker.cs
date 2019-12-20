@@ -10,7 +10,7 @@ namespace Cataloguer.UI.FormControls.DatePicker
 
         public override DateTime Value 
         {
-            get => _datePicker.Value;
+            get => _datePicker.Value.Date;
             set => _datePicker.Value = value;
         }
 

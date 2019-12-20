@@ -46,7 +46,7 @@ namespace Cataloguer.UI.FormControls
 
         protected int GetFullWidth(Control control, Control container)
         {
-            return container.Size.Width - 2 * control.Location.X - 1;
+            return container.Size.Width - control.Location.X - 1;
         }
     }
 }

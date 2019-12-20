@@ -1,5 +1,5 @@
 ﻿using Cataloguer.DomainLogic.Interfaces.Exceptions;
-using Cataloguer.DomainLogic.Interfaces.Models.BaseClasses;
+using Cataloguer.UI.Enums;
 using Cataloguer.UI.Events;
 using Cataloguer.UI.FormControls;
 using System;
@@ -8,19 +8,20 @@ using System.Windows.Forms;
 
 namespace Cataloguer.UI
 {
-    public partial class CrudEditorForm<T> : Form where T : BaseModel
+    public partial class CrudEditorForm<T> : Form
     {
         private readonly FormControl<T> _formControl;
 
         public event EventHandler<ItemSavedEventArgs<T>> ItemSaved;
+        public event EventHandler SearchResultsCleared;
 
-        public CrudEditorForm(T @object, bool isCreateMode, FormControl<T> formControl)
+        public CrudEditorForm(T @object, ViewType viewType, FormControl<T> formControl)
         {
             InitializeComponent();
 
             _formControl = formControl;
 
-            InitializeView(isCreateMode);
+            InitializeView(viewType);
             InitializeForm(@object, formControl);
         }
 
@@ -31,24 +32,38 @@ namespace Cataloguer.UI
 
         private void ButtonSave_Click(object sender, EventArgs e)
         {
-            if (RaiseItemSaved(_formControl.Value))
-            {
-                Close();
-            }
+            RaiseItemSaved(_formControl.Value);
         }
 
-        private bool RaiseItemSaved(T @object)
+        private void RaiseItemSaved(T @object)
         {
             var args = new ItemSavedEventArgs<T>(@object);
             ItemSaved?.Invoke(this, args);
-
-            return args.IsHandled;
         }
 
-        private void InitializeView(bool isCreateMode)
+        private void InitializeView(ViewType viewType)
         {
-            buttonSave.Text = isCreateMode ? "Добавить" : "Обновить";
-            Text = isCreateMode ? "Добавление объекта" : "Обновление объекта";
+            string buttonSaveText, formName;
+            buttonSaveText = formName = string.Empty;
+
+            switch (viewType)
+            {
+                case ViewType.Create:
+                    buttonSaveText = "Добавить";
+                    formName = "Добавление объекта";
+                    break;
+                case ViewType.Update:
+                    buttonSaveText = "Обновить";
+                    formName = "Обновление объекта";
+                    break;
+                case ViewType.Search:
+                    buttonSaveText = formName = "Поиск";
+                    buttonClearSearch.Visible = true;
+                    break;
+            }
+
+            buttonSave.Text = buttonSaveText;
+            Text = formName;
         }
 
         private void InitializeForm(T @object, FormControl<T> formControl)
@@ -68,6 +83,7 @@ namespace Cataloguer.UI
         {
             buttonSave.Location = GetNewPoint(buttonSave, panelForm);
             buttonBack.Location = GetNewPoint(buttonBack, panelForm);
+            buttonClearSearch.Location = GetNewPoint(buttonClearSearch, panelForm);
             Height = buttonSave.Location.Y + buttonSave.Height + 60;
         }
 
@@ -78,6 +94,11 @@ namespace Cataloguer.UI
                 X = control.Location.X,
                 Y = from.Location.Y + from.Height + 20,
             };
+        }
+
+        private void ButtonClearSearch_Click(object sender, EventArgs e)
+        {
+            SearchResultsCleared?.Invoke(this, new EventArgs());
         }
     }
 }

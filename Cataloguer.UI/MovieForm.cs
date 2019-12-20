@@ -1,9 +1,12 @@
 ﻿using Cataloguer.DomainLogic.Interfaces.Exceptions;
 using Cataloguer.DomainLogic.Interfaces.Models;
+using Cataloguer.DomainLogic.Interfaces.Models.Search;
 using Cataloguer.DomainLogic.Interfaces.Services;
 using Cataloguer.UI.Adapters;
+using Cataloguer.UI.Enums;
 using Cataloguer.UI.Events;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -12,22 +15,27 @@ namespace Cataloguer.UI
     public partial class MovieForm : Form
     {
         private readonly Func<Type, Form> _crudFormFactory;
-        private readonly Func<Movie, bool, CrudEditorForm<Movie>> _crudEditorFormFactory;
+        private readonly Func<Movie, ViewType, CrudEditorForm<Movie>> _editorFormFactory;
+        private readonly Func<CrudEditorForm<MovieSearchModel>> _searchFormFactory;
         private readonly Func<int, MovieDetailsForm> _movieDetailsFormFactory;
         private readonly IListViewAdapter<Movie> _adapter;
-        private readonly ICrudService<Movie> _service;
+        private readonly IMovieService _service;
+
+        private CrudEditorForm<MovieSearchModel> _searchForm;
 
         public MovieForm(
             Func<Type, Form> crudFormFactory,
-            ICrudService<Movie> service,
+            IMovieService service,
             IListViewAdapter<Movie> adapter,
-            Func<Movie, bool, CrudEditorForm<Movie>> crudEditorFormFactory,
+            Func<Movie, ViewType, CrudEditorForm<Movie>> editorFormFactory,
+            Func<CrudEditorForm<MovieSearchModel>> searchFormFactory,
             Func<int, MovieDetailsForm> movieDetailsFormFactory
         )
         {
             InitializeComponent();
 
-            _crudEditorFormFactory = crudEditorFormFactory;
+            _editorFormFactory = editorFormFactory;
+            _searchFormFactory = searchFormFactory;
             _movieDetailsFormFactory = movieDetailsFormFactory;
             _crudFormFactory = crudFormFactory;
             _service = service;
@@ -35,7 +43,7 @@ namespace Cataloguer.UI
 
             LinkModelsTypes();
             InitializeView();
-            UpdateViewData();
+            UpdateViewData(_service.GetAll());
         }
 
         private void LinkModelsTypes()
@@ -52,13 +60,13 @@ namespace Cataloguer.UI
             listView.Columns.AddRange(_adapter.GetColumns().ToArray());
         }
 
-        private void UpdateViewData()
+        private void UpdateViewData(IEnumerable<Movie> items)
         {
             listView.Items.Clear();
 
             listView.Items.AddRange(
                 _adapter
-                    .GetItems(_service.GetAll())
+                    .GetItems(items)
                     .ToArray()
             );
 
@@ -77,6 +85,7 @@ namespace Cataloguer.UI
             crudForm.FormClosed += (object senderInner, FormClosedEventArgs args) => Show();
             crudForm.Text = e.ClickedItem.Text;
 
+            _searchForm?.Close();
             Hide();
             crudForm.Show();
         }
@@ -101,7 +110,7 @@ namespace Cataloguer.UI
 
             int id = GetSelectedItemId();
             _service.Delete(id);
-            UpdateViewData();
+            UpdateViewData(_service.GetAll());
         }
 
         private int GetSelectedItemId()
@@ -111,7 +120,7 @@ namespace Cataloguer.UI
 
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
-            InitializeEditorForm(default, true, OnItemCreated);
+            InitializeEditorForm(default, ViewType.Create, OnItemCreated);
         }
 
         private void ButtonUpdate_Click(object sender, EventArgs e)
@@ -119,49 +128,48 @@ namespace Cataloguer.UI
             int id = GetSelectedItemId();
             Movie viewObject = _service.Get(id);
 
-            InitializeEditorForm(viewObject, false, OnItemUpdated);
+            InitializeEditorForm(viewObject, ViewType.Update, OnItemUpdated);
         }
 
         private void InitializeEditorForm(
             Movie @object,
-            bool isCreateMode,
+            ViewType viewType,
             EventHandler<ItemSavedEventArgs<Movie>> handler
         )
         {
-            CrudEditorForm<Movie> editorForm = _crudEditorFormFactory(@object, isCreateMode);
+            CrudEditorForm<Movie> editorForm = _editorFormFactory(@object, viewType);
 
             editorForm.FormClosed += (sender, e) => Show();
             editorForm.ItemSaved += handler;
 
+            _searchForm?.Close();
             Hide();
             editorForm.Show();
         }
 
-        private bool OnItemSaved(Action action, bool isCreateAction)
+        private void OnItemSaved(Form form, Action action, bool isCreateAction)
         {
             try
             {
                 action();
+                form.Close();
             }
             catch (ValidationException e)
             {
                 MessageBox.Show(e.Message, $"Ошибка {(isCreateAction ? "добавления" : "обновления")} объекта");
-                return false;
             }
 
-            UpdateViewData();
-
-            return true;
+            UpdateViewData(_service.GetAll());
         }
 
         private void OnItemCreated(object sender, ItemSavedEventArgs<Movie> e)
         {
-            e.IsHandled = OnItemSaved(() => _service.Create(e.Item), true);
+            OnItemSaved((Form)sender, () => _service.Create(e.Item), true);
         }
 
         private void OnItemUpdated(object sender, ItemSavedEventArgs<Movie> e)
         {
-            e.IsHandled = OnItemSaved(() => _service.Update(e.Item), false);
+            OnItemSaved((Form)sender, () => _service.Update(e.Item), false);
         }
 
         private void ListView_SelectedIndexChanged(object sender, EventArgs e)
@@ -176,8 +184,26 @@ namespace Cataloguer.UI
 
             detailsForm.FormClosed += (_sender, _e) => Show();
 
+            _searchForm?.Close();
             Hide();
             detailsForm.Show();
+        }
+
+        private void ButtonSearchPanel_Click(object sender, EventArgs e)
+        {
+            buttonSearchPanel.Enabled = false;
+
+            _searchForm = _searchFormFactory();
+            _searchForm.FormClosed += (_sender, _e) => buttonSearchPanel.Enabled = true;
+            _searchForm.ItemSaved += (_sender, _e) => Search(_e.Item);
+            _searchForm.SearchResultsCleared += (_sender, _e) => UpdateViewData(_service.GetAll());
+
+            _searchForm.Show();
+        }
+
+        private void Search(MovieSearchModel searchModel)
+        {
+            UpdateViewData(_service.Search(searchModel));
         }
     }
 }

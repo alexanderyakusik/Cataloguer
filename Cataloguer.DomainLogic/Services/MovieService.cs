@@ -4,11 +4,13 @@ using Cataloguer.Data.DTO;
 using Cataloguer.DomainLogic.Interfaces.Exceptions;
 using Cataloguer.DomainLogic.Interfaces.Models;
 using Cataloguer.DomainLogic.Interfaces.Models.BaseClasses;
+using Cataloguer.DomainLogic.Interfaces.Models.Search;
 using Cataloguer.DomainLogic.Interfaces.Services;
 using Cataloguer.DomainLogic.Services.BaseClasses;
 using Cataloguer.Infrastructure.Configuration;
 using Cataloguer.Infrastructure.Mapping;
 using System;
+using Cataloguer.DomainLogic.Search;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -43,7 +45,8 @@ namespace Cataloguer.DomainLogic.Services
         public override IEnumerable<Movie> GetAll()
         {
             return DAO.GetAll()
-                .Select(GetMovie);
+                .Select(GetMovie)
+                .OrderBy(movie => movie.Id);
         }
 
         public override void Delete(int id)
@@ -126,6 +129,35 @@ namespace Cataloguer.DomainLogic.Services
             {
                 throw new ValidationException($"Необходимо назначить объект типа {modelName}.");
             }
+        }
+
+        public IEnumerable<Movie> Search(MovieSearchModel searchModel)
+        {
+            return GetAll()
+                .Where(item =>
+                    StartsWith(item.Name, searchModel.Name) &&
+                    Equal(item.Company.Name, searchModel.CompanyName) &&
+                    Equal(item.Genre.Name, searchModel.GenreName) &&
+                    Equal(item.Quality.Name, searchModel.QualityName) &&
+                    Equal(item.Format.Name, searchModel.FormatName) &&
+                    IsComparisonCorrect(item.Runtime, searchModel.RuntimeComparison) &&
+                    IsComparisonCorrect(item.ReleaseDate, searchModel.ReleaseDateComparison)
+                );
+        }
+
+        private bool Equal(string source, string compared)
+        {
+            return string.IsNullOrWhiteSpace(compared) || source == compared;
+        }
+
+        private bool StartsWith(string source, string starts)
+        {
+            return string.IsNullOrWhiteSpace(starts) || source.StartsWith(starts);
+        }
+        
+        private bool IsComparisonCorrect<T>(T source, SearchComparison<T> comparison) where T : IComparable
+        {
+            return SearchHelper.ConvertComparison(comparison).Invoke(source);
         }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using Cataloguer.DomainLogic.Interfaces.Models;
+using Cataloguer.DomainLogic.Interfaces.Models.Search;
 using Cataloguer.DomainLogic.Interfaces.Services;
 using Cataloguer.Infrastructure.DependencyInjection;
 using Cataloguer.Infrastructure.DependencyInjection.Interfaces;
-using Cataloguer.Infrastructure.Mapping;
 using Cataloguer.UI.Adapters;
+using Cataloguer.UI.Enums;
 using Cataloguer.UI.FormControls.Models;
 using Cataloguer.UI.Providers.Dropdown;
 using Cataloguer.UI.Resolvers;
@@ -58,7 +59,14 @@ namespace Cataloguer.UI.DependencyInjection
                 return (Form)container.Resolve(crudFormType);
             };
 
-            Func<MovieFormControl> movieFormControlFactory = () => new MovieFormControl(
+            Func<MovieFormControl> movieEditorFormControlFactory = () => new MovieFormControl(
+                new NamedBaseDropdownValuesProvider<Company>(container.Resolve<ICompanyService>()),
+                new NamedBaseDropdownValuesProvider<Genre>(container.Resolve<IGenreService>()),
+                new NamedBaseDropdownValuesProvider<Quality>(container.Resolve<IQualityService>()),
+                new NamedBaseDropdownValuesProvider<Format>(container.Resolve<IFormatService>())
+            );
+
+            Func<MovieSearchFormControl> movieSearchFormControlFactory = () => new MovieSearchFormControl(
                 new NamedBaseDropdownValuesProvider<Company>(container.Resolve<ICompanyService>()),
                 new NamedBaseDropdownValuesProvider<Genre>(container.Resolve<IGenreService>()),
                 new NamedBaseDropdownValuesProvider<Quality>(container.Resolve<IQualityService>()),
@@ -70,7 +78,8 @@ namespace Cataloguer.UI.DependencyInjection
                     crudFormFactory,
                     container.Resolve<IMovieService>(),
                     movieAdapter,
-                    (movie, isCreateMode) => new CrudEditorForm<Movie>(movie, isCreateMode, movieFormControlFactory()),
+                    (movie, viewType) => new CrudEditorForm<Movie>(movie, viewType, movieEditorFormControlFactory()),
+                    () => new CrudEditorForm<MovieSearchModel>(default, ViewType.Search, movieSearchFormControlFactory()),
                     (id) => new MovieDetailsForm(id, container.Resolve<IMovieService>())
                 ));
         }

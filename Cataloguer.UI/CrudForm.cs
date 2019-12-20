@@ -2,6 +2,7 @@
 using Cataloguer.DomainLogic.Interfaces.Models.BaseClasses;
 using Cataloguer.DomainLogic.Interfaces.Services;
 using Cataloguer.UI.Adapters;
+using Cataloguer.UI.Enums;
 using Cataloguer.UI.Events;
 using System;
 using System.Linq;
@@ -14,12 +15,12 @@ namespace Cataloguer.UI
     {
         private readonly IListViewAdapter<T> _adapter;
         private readonly ICrudService<T> _service;
-        private readonly Func<T, bool, CrudEditorForm<T>> _editorFormFactory;
+        private readonly Func<T, ViewType, CrudEditorForm<T>> _editorFormFactory;
 
         public CrudForm(
             ICrudService<T> service,
             IListViewAdapter<T> adapter,
-            Func<T, bool, CrudEditorForm<T>> editorFormFactory
+            Func<T, ViewType, CrudEditorForm<T>> editorFormFactory
         )
         {
             InitializeComponent();
@@ -57,7 +58,7 @@ namespace Cataloguer.UI
 
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
-            InitializeEditorForm(default, true, OnItemCreated);
+            InitializeEditorForm(default, ViewType.Create, OnItemCreated);
         }
 
         private void ButtonUpdate_Click(object sender, EventArgs e)
@@ -65,7 +66,7 @@ namespace Cataloguer.UI
             int id = GetSelectedItemId();
             T viewObject = _service.Get(id);
 
-            InitializeEditorForm(viewObject, false, OnItemUpdated);
+            InitializeEditorForm(viewObject, ViewType.Update, OnItemUpdated);
         }
 
         private void ButtonDelete_Click(object sender, EventArgs e)
@@ -104,11 +105,11 @@ namespace Cataloguer.UI
 
         private void InitializeEditorForm(
             T @object,
-            bool isCreateMode,
+            ViewType viewType,
             EventHandler<ItemSavedEventArgs<T>> handler
         )
         {
-            CrudEditorForm<T> editorForm = _editorFormFactory(@object, isCreateMode);
+            CrudEditorForm<T> editorForm = _editorFormFactory(@object, viewType);
 
             editorForm.FormClosed += (sender, e) => Show();
             editorForm.ItemSaved += handler;
@@ -117,31 +118,29 @@ namespace Cataloguer.UI
             editorForm.Show();
         }
 
-        private bool OnItemSaved(Action action, bool isCreateAction)
+        private void OnItemSaved(Form form, Action action, bool isCreateAction)
         {
             try
             {
                 action();
+                form.Close();
             }
             catch (ValidationException e)
             {
                 MessageBox.Show(e.Message, $"Ошибка {(isCreateAction ? "добавления" : "обновления")} объекта");
-                return false;
             }
 
             UpdateViewData();
-
-            return true;
         }
 
         private void OnItemCreated(object sender, ItemSavedEventArgs<T> e)
         {
-            e.IsHandled = OnItemSaved(() => _service.Create(e.Item), true);
+            OnItemSaved((Form)sender, () => _service.Create(e.Item), true);
         }
 
         private void OnItemUpdated(object sender, ItemSavedEventArgs<T> e)
         {
-            e.IsHandled = OnItemSaved(() => _service.Update(e.Item), false);
+            OnItemSaved((Form)sender, () => _service.Update(e.Item), false);
         }
     }
 }
